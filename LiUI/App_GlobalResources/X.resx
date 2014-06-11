@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Enum_BuyerPersonas_Champion" xml:space="preserve">
+    <value>Champion</value>
+  </data>
+  <data name="Enum_BuyerPersonas_Coach" xml:space="preserve">
+    <value>Coach</value>
+  </data>
+  <data name="Enum_BuyerPersonas_EconomicBuyer" xml:space="preserve">
+    <value>Economic Buyer</value>
+  </data>
+  <data name="Enum_BuyerPersonas_FOX" xml:space="preserve">
+    <value>FOX</value>
+  </data>
+  <data name="Enum_BuyerPersonas_None" xml:space="preserve">
+    <value>未指定</value>
+  </data>
+  <data name="Enum_BuyerPersonas_TechnicalBuyer" xml:space="preserve">
+    <value>Technical Buyer</value>
+  </data>
+  <data name="Enum_BuyerPersonas_UserBuyer" xml:space="preserve">
+    <value>User Buyer</value>
+  </data>
+  <data name="Enum_BuyerTypes_Buyer" xml:space="preserve">
+    <value>决策者</value>
+  </data>
+  <data name="Enum_BuyerTypes_NotBuyer" xml:space="preserve">
+    <value>非决策者</value>
+  </data>
+  <data name="Enum_BuyerTypes_Unknown" xml:space="preserve">
+    <value>无法判断</value>
+  </data>
+  <data name="Enum_CRUD_Check" xml:space="preserve">
+    <value>审批</value>
+  </data>
+  <data name="Enum_CRUD_Create" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="Enum_CRUD_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Enum_CRUD_Read" xml:space="preserve">
+    <value>读取</value>
+  </data>
+  <data name="Enum_CRUD_Update" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="Enum_CustomerTyps_Customer" xml:space="preserve">
+    <value>客户</value>
+  </data>
+  <data name="Enum_CustomerTyps_Partner" xml:space="preserve">
+    <value>合作伙伴</value>
+  </data>
+  <data name="Enum_CustomerTyps_Supplier" xml:space="preserve">
+    <value>供应商</value>
+  </data>
+  <data name="Enum_OrderStatus_Archived" xml:space="preserve">
+    <value>已存档</value>
+  </data>
+  <data name="Enum_OrderStatus_Checked" xml:space="preserve">
+    <value>已审批</value>
+  </data>
+  <data name="Enum_OrderStatus_Finished" xml:space="preserve">
+    <value>已结束</value>
+  </data>
+  <data name="Enum_OrderStatus_Inned" xml:space="preserve">
+    <value>已入库</value>
+  </data>
+  <data name="Enum_OrderStatus_InnedSome" xml:space="preserve">
+    <value>已部分入库</value>
+  </data>
+  <data name="Enum_OrderStatus_Ordered" xml:space="preserve">
+    <value>已下单</value>
+  </data>
+  <data name="Enum_OrderStatus_Outted" xml:space="preserve">
+    <value>已出库</value>
+  </data>
+  <data name="Enum_OrderStatus_OuttedSome" xml:space="preserve">
+    <value>已部分出库</value>
+  </data>
+  <data name="Enum_OrderStatus_Paid" xml:space="preserve">
+    <value>已支付</value>
+  </data>
+  <data name="Enum_OrderStatus_PaidSome" xml:space="preserve">
+    <value>已部分支付</value>
+  </data>
+  <data name="Enum_SuccessRatioes_SR00" xml:space="preserve">
+    <value>没可能</value>
+  </data>
+  <data name="Enum_SuccessRatioes_SR20" xml:space="preserve">
+    <value>20%机会</value>
+  </data>
+  <data name="Enum_SuccessRatioes_SR40" xml:space="preserve">
+    <value>40%机会</value>
+  </data>
+  <data name="Enum_SuccessRatioes_SR80" xml:space="preserve">
+    <value>80%机会</value>
+  </data>
+  <data name="Enum_UserTypes_HostAdministrator" xml:space="preserve">
+    <value>租户管理员</value>
+  </data>
+  <data name="Enum_UserTypes_Normal" xml:space="preserve">
+    <value>普通用户</value>
+  </data>
+  <data name="Enum_UserTypes_SystemAdministrator" xml:space="preserve">
+    <value>系统管理员</value>
+  </data>
+  <data name="Enum_VisitWays_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Enum_VisitWays_IM" xml:space="preserve">
+    <value>即时通讯</value>
+  </data>
+  <data name="Enum_VisitWays_Tel" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="Enum_VisitWays_ToDoor" xml:space="preserve">
+    <value>上门拜访</value>
+  </data>
+  <data name="Enum_WebSiteStatus_HadSite" xml:space="preserve">
+    <value>已有网站</value>
+  </data>
+  <data name="Enum_WebSiteStatus_MaybeBetter" xml:space="preserve">
+    <value>可能改版</value>
+  </data>
+  <data name="Enum_WebSiteStatus_NoSite" xml:space="preserve">
+    <value>没有网站</value>
+  </data>
+  <data name="Enum_WebSiteStatus_PlatformSite" xml:space="preserve">
+    <value>平台网站</value>
+  </data>
+  <data name="Enum_Wishs_ContactLater" xml:space="preserve">
+    <value>稍后联络</value>
+  </data>
+  <data name="Enum_Wishs_DateToDoor" xml:space="preserve">
+    <value>约定下次拜访</value>
+  </data>
+  <data name="Enum_Wishs_DateToOrder" xml:space="preserve">
+    <value>约定签约</value>
+  </data>
+  <data name="Enum_Wishs_Maybe" xml:space="preserve">
+    <value>有意向</value>
+  </data>
+  <data name="Enum_Wishs_NotConsider" xml:space="preserve">
+    <value>暂不考虑</value>
+  </data>
+  <data name="Enum_Wishs_NotPresent" xml:space="preserve">
+    <value>负责人不在</value>
+  </data>
+  <data name="Enum_Wishs_Ordered" xml:space="preserve">
+    <value>已经签约</value>
+  </data>
+</root>

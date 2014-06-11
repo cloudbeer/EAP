@@ -1,0 +1,274 @@
+﻿@model List<Z01Beetle.Entity.Z01Product>
+@using Z01Beetle.Entity;
+@using System.Linq;
+@{
+    ViewBag.Title = "新增销售";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var brands = ViewBag._brands as List<Z01Brand>;
+    var order = ViewBag._order as EAP.Logic.Z10.Order;
+    var currencies = ViewBag._currencies as List<EAP.Bus.Entity.Currency>;
+    var banks = ViewBag._banks as List<Z01Bank>;
+    var depots = ViewBag._depots as List<Z10Cabbage.Entity.Z10Depot>;
+    var units = ViewBag._units as List<Z01Unit>;
+    var categories = ViewBag._categories as List<Z01ProductCategory>;
+}
+<style type="text/css">
+    #product_list { float: left; width: 40%; }
+    #shopcart { float: right; width: 59%; padding: 0 5px; margin-left: 2px; }
+    #product_list li { float: left; width: 100px; height: 60px; padding: 2px; margin: 2px; border: 1px solid #ccc; cursor: pointer; }
+    #product_list li:hover { background: #eee; }
+    #item_list { border: 1px solid #ccc; }
+    #item_list .xtitle { background: #eee; }
+    #item_list tr th { font-weight: bold; text-align: center; padding: 5px; }
+    #item_list tr td { padding: 5px; }
+    #item_list tr:hover td { background: #f1f1f1; }
+    #order_info { padding: 10px; border: 1px solid #ccc; margin: 2px; }
+    #order_info td { padding: 4px; }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $("#item_list").width($("#shopcart").width());
+
+
+        $(".close").live('click', function () {
+            $(".xform").hide();
+        });
+        $("#btnQuery").click(function () {
+            $("#depot_product").hide();
+            queryProduct();
+        });
+
+        $("#q").keypress(function (event) {
+            if (event.which == 13) {
+                queryProduct();
+            }
+        });
+
+        function queryProduct() {
+            $.post("/Z10SalesOrder/SelectProduct_S1/", { q: $("#q").val(), brand: $("#brand").val(), cate: $("#category").val() }, function (res) {
+                $("#product_list").html(res);
+            });
+        }
+
+        function posMe(xthis, xtar) {
+            pos = xthis.position(); xleft = pos.left; xtop = pos.top;
+            xtar.css("left", xleft + 2);
+            xtar.css("top", xtop + 2).show();
+        }
+        var proid = 0;
+        $("#product_list li").live("click", function () {
+            xthis = $(this);
+            proid = xthis.attr("rel");
+            $("#depot_product ul .title").html(xthis.html());
+            $("#xdetail_title").html(xthis.html());
+            $("#depot_product").hide();
+            resetStockForm();
+            $("#shopcart ul").html("正在查询库存...");
+            $.post("/Z10StockOrder/SelectProduct_S2/", { productID: proid }, function (res) {
+                if (res.state) {
+                    $("#oprice").val(res.data.price);
+                    posMe(xthis, $("#depot_product"));
+                } else {
+                    parent.$.jshowtip(res.message, "error", 5);
+                }
+            }, 'json');
+            $.post("/Z10Depot/ShowDetail_S2/", { productID: proid }, function (res) {
+                $("#mydetail").html(res);
+            });
+
+
+        });
+
+        $("#btn_addProduct").live('click', function () {
+            count = $("#ocount").val(); color = $("#ext_color").val(); size = $("#ext_size").val(); price = $("#oprice").val();
+            if (isNaN(count)) {
+                alert("进货数量请输入数字。");
+                $("#ocount").focus();
+                return;
+            }
+            if (isNaN(price) || price < 0) {
+                alert("进货价格必须是大于0的数字。");
+                $("#ocount").focus();
+                return;
+            }
+            $.post("/Z10Depot/SaveProduct_S3/", { pid: proid, count: count, price: price, color: color, size: size, did: $("#odepot").val() }, function (res) {
+                if (!res.state) {
+                    alert(res.message);
+                    return;
+                }
+                $.post("/Z10Depot/ShowDetail_S2/", { productID: proid }, function (res) {
+                    $("#mydetail").html(res);
+                });
+                $("#depot_product").hide();
+            }, 'json');
+        });
+
+        $("#btnCreateProduct").click(function () {
+            xthis = $(this);
+            posMe(xthis, $("#create_product"));
+        });
+
+        $("#btn_createBrand").click(function () {
+            $("#d_brand").show();
+            $("#d_selBrand").hide();
+        });
+        $("#btn_cancelBrand").click(function () {
+            $("#d_brand").hide();
+            $("#d_selBrand").show();
+        });
+
+        $("#btn_saveBrand").click(function () {
+            brandTitle = $("#brand_title").val();
+            if (brandTitle == "") {
+                alert("请填写品牌名称。"); $("#brand_title").focus(); return;
+            }
+            $.post("/Z01Brand/SaveAjax/", { tt: brandTitle }, function (res) {
+                if (res.state) {
+                    xoption1 = $("<option value='" + res.data.id + "'>" + res.data.title + "</option>");
+                    xoption2 = $("<option value='" + res.data.id + "'>" + res.data.title + "</option>");
+                    $("#c_brand").append(xoption1);
+                    xoption1.attr("selected", "selected");
+                    $("#brand").append(xoption2);
+                    $("#brand_title").val("");
+                    $("#d_brand").hide();
+                    $("#d_selBrand").show();
+                }
+            }, 'json');
+        });
+        $("#btn_saveProduct").click(function () {
+            c_brand = $("#c_brand").val(); c_title = $("#c_title").val(); c_currency = $("#c_currency").val(); c_stock_price = $("#c_stock_price").val(); c_sale_price = $("#c_sale_price").val(); c_unit = $("#c_unit").val(); c_code = $("#c_code").val();
+            if (c_brand == "0") { alert("必须选择品牌。"); $("#c_brand").focus(); return; }
+            if ($.trim(c_title) == "") { alert("必须填写品名。"); $("#c_title").focus(); return; }
+            if (c_stock_price == "" || isNaN(c_stock_price) || c_stock_price < 0) { alert("必须填写进价。"); $("#c_stock_price").focus(); return; }
+            if (c_sale_price == "" || isNaN(c_sale_price) || c_sale_price < 0) { alert("必须填写售价。"); $("#c_sale_price").focus(); return; }
+            $.post("/Z01Product/SaveAjax/", { c_brand: c_brand, c_title: c_title, c_code: c_code, c_currency: c_currency, c_stock_price: c_stock_price, c_sale_price: c_sale_price, c_unit: c_unit }, function (res) {
+                if (res.state) {
+                    xproduct = "<li rel='" + res.data.id + "'>" + res.data.title + "<br />" + c_code + "(<strong style='color:red;font-weight:bold'>无货</strong>)</li>";
+                    $("#product_list ul").prepend(xproduct);
+                    $("#create_product").hide();
+                } else {
+                    alert(res.message);
+                }
+            }, 'json');
+        });
+    });
+
+    function resetStockForm() {
+        $("#ocount").val("1"); $("#ext_color").val(""); $("#ext_size").val(""); $("#oprice").val("");
+    }
+</script>
+<div class="xpage_title">
+    初始建库
+</div>
+<div id="dQuery" style="padding: 10px">
+    关键字：<input id="q" class="text w100" />
+    品牌：<select id="brand">
+        <option value="0">请选择</option>
+        @foreach (var brand in brands)
+        { 
+            <option value="@(brand.BrandID ?? 0)">@brand.Title</option>
+        }
+    </select>
+    类别：<select id="category">
+        <option value="0">请选择</option>
+        @foreach (var cate in categories)
+        { 
+            <option value="@(cate.CategoryID ?? 0)">@Html.Raw(cate.Title)</option>
+        }
+    </select>
+    <input type="button" value="查询" id="btnQuery" class="button mr20" />
+    <input type="button" value=" 没有产品？现在快速新建一个" id="btnCreateProduct" class="button mr20" />
+</div>
+<div id="create_product" class="xform">
+    <div class="clearfix bar">
+        <span style="float: left">新建商品</span> <span class="close">X</span>
+    </div>
+    <ul>
+        <li id="d_selBrand">品牌：<select id="c_brand">
+            <option value="0">请选择</option>
+            @foreach (var brand in brands)
+            { 
+                <option value="@(brand.BrandID ?? 0)">@brand.Title</option>
+            }
+        </select>
+            <a href="#" id="btn_createBrand">没有？创建！</a></li>
+        <li id="d_brand" style="display: none">品牌：<input type='text' id='brand_title' class='text w100' /><input
+            type="button" id="btn_saveBrand" class="button" value="保存" />
+            <input type="button" id="btn_cancelBrand" class="button" value="取消" /></li>
+        <li>品名：<input id="c_title" class="text w200" /></li>
+        <li>编号：<input id="c_code" class="text w200" /></li>
+        <li>货币：
+            <select id="c_currency">
+                @foreach (var cur in currencies)
+                {
+                    <option value="@cur.ID">@cur.Title</option>                            
+                }
+            </select></li>
+        <li>进价：<input id="c_stock_price" class="text w100 tr" /></li>
+        <li>出价：<input id="c_sale_price" class="text w100 tr" /></li>
+        <li>单位：
+            <select id="c_unit">
+                @foreach (var cur in units)
+                {
+                    <option value="@cur.UnitID">@cur.Title</option>                            
+                }
+            </select></li>
+        <li>
+            <input type="button" id="btn_saveProduct" value="增加商品" class="button" /></li>
+    </ul>
+</div>
+<div id="depot_product" class="xform">
+    <div class="clearfix bar">
+        <span style="float: left">填写进货信息</span> <span class="close">X</span>
+    </div>
+    <ul>
+        <li><span class="title">商品标题</span></li>
+        <li>颜色：<input type="text" class="text w200 ocolor" id="ext_color" /></li>
+        <li>尺寸：<input type="text" class="text w200 osize" id="ext_size" /></li>
+        <li>数量：<input type="text" class="text w50 ocount" id="ocount" value="1" /></li>
+        <li>进价：<input type="text" class="text w50 oprice" id="oprice" value="23" /></li>
+        <li>仓库：<select id="odepot">
+            @foreach (var depot in depots)
+            { 
+                <option value="@depot.DepotID">@depot.Title</option>
+            }
+        </select></li>
+        <li>
+            <input type="button" id="btn_addProduct" value="加入到仓库" class="button" /></li>
+    </ul>
+</div>
+<div style="left: 261px; top: 10px; display: none" id="dSelPanel" class="pop-box w500">
+    <h2 rel="title">
+        <a title="关闭" class="close" href="javascript:;">关闭</a><span id="selTitle">选择客户</span></h2>
+    <div class="con">
+        <div class="top">
+            <div rel="msg_box" class="fl">
+                <input class="text w100" id='qTitle' />
+                <a href='javascript:;' class='btn img' id='bQuery'><i class='icon i_search'></i>查询<b></b></a>
+            </div>
+        </div>
+        <div class="main" style="height: 300px;">
+            <iframe id="ifSel" width="100%" height="100%" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
+<div class="clearfix">
+    <div id="product_list">
+        <ul class="clearfix">
+            @foreach (var item in Model)
+            {
+                string leftStock = "<br /><strong style='color:red;font-weight:bold'>无货</strong>";
+                var xsum = Zippy.Data.StaticDB.DB.Take<Z10Cabbage.Entity.Z10DepotProduct>("ProductID=" + item.ProductID).Sum(s => s.StockSum) ?? 0;
+                if (xsum > 0)
+                {
+                    leftStock = "<br /><span style='color:#009900'>库存: " + xsum.ToString("0.##") + "</span>";
+                }
+                <li rel="@item.ProductID">@item.Title <br /> @item.Code @Html.Raw(leftStock)</li>
+            }
+        </ul>
+    </div>
+    <div id="shopcart">
+        <div id="mydetail" style="margin-left: 160px; padding: 20px; border: 1px solid #ccc">
+        </div>
+    </div>
+</div>

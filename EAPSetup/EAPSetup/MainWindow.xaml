@@ -1,0 +1,8 @@
+﻿<Window x:Class="EAPSetup.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="EAP销售管理系统安装" Height="483" Width="686">
+    <Grid>
+        
+    </Grid>
+</Window>

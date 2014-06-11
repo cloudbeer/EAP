@@ -1,0 +1,97 @@
+﻿@model  List<EAP.Logic.Z10.View.V_OrderItemDetail>
+@{
+    ViewBag.Title = "OrderHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var product = ViewBag._product as Z01Beetle.Entity.Z01Product;
+    var brand = ViewBag._brand as Z01Beetle.Entity.Z01Brand;
+    var db = Zippy.Data.StaticDB.DB;
+    var isCFO = EAP.Logic.Helper.IsCFO();
+      
+}
+<style type="text/css">
+    #main_goods { padding: 20px; }
+    #main_goods h3 { font-weight: bold; font-size: 14px; }
+    #main_goods .goods_item { padding: 10px; }
+</style>
+<div id="contents">
+    <div id="top">
+        <div class="con clearfix">
+            <div class="fl">
+                <a href="javascript:history.back();" class="btn img back"><i class="icon i_back"></i>
+                    返回<b></b></a>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="main_goods">
+            <h3 class="title">
+                品名：@brand.Title @product.Title</h3>
+            <ul class="goods_item">
+                <li>价格：@((product.PriceList ?? 0).ToString("#.00"))</li>
+                @{                    
+                    if (isCFO)
+                    {
+                    <li>进价：@((product.PriceStock ?? 0).ToString("#.00"))</li>
+                    <li>折扣：
+                        @if (product.PriceList > 0)
+                        {  
+                            @(((product.PriceStock ?? 0) / (product.PriceList ?? 1)).ToString("0.##"))
+                        }
+                    </li>
+                    }
+                }
+            </ul>
+            <h3>
+                销售历史</h3>
+        </div>
+        <table width="100%" id='oItem' class="list-table f12">
+            <tr>
+                <th>
+                    客户
+                </th>
+                <th>
+                    品名
+                </th>
+                <th class="w100 tc">
+                    售价
+                </th>
+                <th class="w100 tc">
+                    数量
+                </th>
+                <th class="w100 tc">
+                    订单(单击查看)
+                </th>
+                <th class="w100 tc">
+                    日期
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                var _customer = db.FindUnique<Z01Beetle.Entity.Z01Customer>(item.CustomerID ?? 0);
+                <tr>
+                    <td>
+                        @if (_customer != null)
+                        {
+                            <a href="/z01Customer/OrderHistory/@_customer.CustomerID">@_customer.Title</a>                    
+                        }
+                    </td>
+                    <td>
+                        @item.Title @item.ExtColor @item.ExtSize
+                    </td>
+                    <td class='tr'>
+                        @((item.Price ?? 0).ToString("#.00"))
+                    </td>
+                    <td class='tr'>
+                        @((item.CountShould ?? 0).ToString("#.##"))
+                    </td>
+                    <td class='tc'>
+                        <a href='/Z10Order/Detail/@item.OrderID?ReturnUrl=@HttpUtility.UrlEncode(Request.RawUrl)'>@item.OrderID</a>
+                    </td>
+                    <td>
+                        @item.DateOrder.Value.ToString("yyyy-MM-dd")
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

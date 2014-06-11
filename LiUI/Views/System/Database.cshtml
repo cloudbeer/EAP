@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Database";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var files = ViewBag.files as string[];
+    var nfiles = files.OrderByDescending(s => s);
+}
+<style type="text/css">
+    h4 { font-weight: bold; font-size: 14px; }
+    .files { padding: 10px; }
+    .files li { padding: 3px 10px; }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $(".del").click(function () {
+            if (!confirm("确认删除？")) return;
+            fName = $(this).prev().text();
+            $.post("/System/DeleteDBBak", { fileName: fName }, function (res) {
+                if (res.state) {
+                    alert("删除成功");
+                    window.location.reload(true);
+                }
+            }, 'json');
+        });
+    });
+</script>
+<div id="contents">
+    <div id="top">
+        <div class="con clearfix">
+            <h4 class="tl">
+                数据库的备份和还原</h4>
+        </div>
+    </div>
+    <div id="main">
+        <div id="buttons" style="padding: 10px">
+            <input type="submit" class="gbutton mr20" value="创建新备份" onclick="location='/System/BackupDB/'" />
+        </div>
+        <div style="padding: 10px">
+            <h4 class="tl">
+                服务器硬盘中存储的数据备份(点击文件名下载到本地)</h4>
+            <ul class="files">
+                @foreach (var file in nfiles)
+                {
+                    var filename = System.IO.Path.GetFileName(file);
+                    <li><a href="/db.bak/@filename">@filename</a>
+                        <button class="del">
+                            删除</button>
+                        @*<button class="restore">
+                            还原</button>*@</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

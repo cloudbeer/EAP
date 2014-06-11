@@ -1,0 +1,138 @@
+﻿@using Z01Beetle.Entity
+@model Zippy.Data.Collections.PaginatedList<Z01Beetle.Entity.Z01Product>
+@{
+    ViewBag.Title = "商品列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var brands = ViewBag.brands as List<Z01Brand>;
+    var categories = ViewBag.categories as List<Z01ProductCategory>;
+}
+<style type="text/css">
+    .tr a { display: block; min-width: 100px; font-weight: bold; }
+    .tr a:hover { color: #ff0000; background: #ffeeee; }
+    #productList { width: 450px; }
+    #productList li { cursor: pointer; width: 130px; height: 68px; overflow: hidden; font-size: 16px; font-weight: bold; float: left; padding: 4px; margin: 4px; border: 1px solid #ccc; white-space: nowrap; }
+    #x_product_detail { margin: 10px; }
+    #x_product_detail li { height: 42px; overflow: hidden; font-size: 26px; font-weight: bold;margin:10px 0; }
+    
+    .fcolor { width: 60px; height: 40px; border: 1px solid #000; float: left; margin: 0 10px; }
+    .fcolor .half { width: 30px; height: 40px;float:left; }
+    .fcolor .full { width: 60px; height: 40px; }
+</style>
+<script type="text/javascript">
+
+		var pageSize = @ViewData["PageSize"];
+		var controller = "/Z10Public";
+		var sortUrl = "@Html.Raw(Model.ToSortUrl())";
+
+    $(function () {
+        $("#btnQuery").click(function () {
+            queryProduct();
+        });
+
+        $("#q").keypress(function (event) {
+            if (event.which == 13) {
+                queryProduct();
+            }
+        });
+
+        function queryProduct() {
+            window.location.href = '/Z10Public/QueryDepot/?PageSize=' + pageSize
+										+ "&qTitle=" + encodeURIComponent($("#q").val())
+                                        + "&qCateID=" + encodeURIComponent($("#category").val())
+                                        + "&qBrandID=" + encodeURIComponent($("#brand").val())
+        }
+        
+            
+        $(".v_detail").click(function(){
+            $("#x_product_detail").html("");
+            xthis=$(this);
+            $(".v_detail").css("background", "#fff");
+            xthis.css("background", "#ccc");
+            pid = xthis.attr("rel");
+            $.post("/Z10Public/DepotDetail/", {id:pid}, function(res){
+                $("#x_product_detail").html(res);
+            });
+        });
+
+        
+        var proid = 0;
+        
+    });
+</script>
+<script type="text/javascript" src="/content/scripts/pagemvc.js"></script>
+<div id="contents">
+    <div id="top">
+        <div class="con clearfix" style="text-align: left">
+            <img src="/Content/Images/logo2.gif" height="31" />
+            库存查看
+        </div>
+    </div>
+    <div id="main">
+        <div id="xdivcontent">
+            <div id="dQuery" style="padding: 10px">
+                关键字：<input id="q" class="text w100" />
+                品牌：<select id="brand">
+                    <option value="0">请选择</option>
+                    @foreach (var brand in brands)
+                    {
+                        <option value="@(brand.BrandID ?? 0)">@brand.Title</option>
+                    }
+                </select>
+                类别：<select id="category">
+                    <option value="0">请选择</option>
+                    @foreach (var cate in categories)
+                    {
+                        <option value="@(cate.CategoryID ?? 0)">@Html.Raw(cate.Title)</option>
+                    }
+                </select>
+                <input type="button" value="查询" id="btnQuery" class="button mr20" />
+            </div>
+            <table cellspacing="0" cellpadding="0" border="0" rel="main" class="list-table">
+                <tr valign="top">
+                    <td id="productList">
+                        <ul>
+                            @if (Model.Count > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+
+                                    string btitle = "";
+                                    var brand = brands.Where(s => s.BrandID == item.BrandID).FirstOrDefault();
+                                    if (brand != null)
+                                    {
+                                        btitle = brand.Title;
+                                    }
+
+                            
+                                <li title="@item.Title" rel="@item.ProductID" class="v_detail">@*<a href='/Z10Public/QueryDepot/?qBrandID=@item.BrandID'></a>*@
+                                    <span style="font-size:12px;color:Green;">@btitle</span><br />
+                                    <span>@item.Title</span>
+                                    <br />
+                                    @{
+                                    var xsum = Zippy.Data.StaticDB.DB.Take<Z10Cabbage.Entity.Z10DepotProduct>("ProductID=" + item.ProductID).Sum(s => s.StockSum) ?? 0;
+                                    if (xsum <= 0)
+                                    {
+                                        <strong style='color: red; font-weight: bold'>无货</strong> @((item.PriceList ?? 0).ToString("(0.##)"))  
+                                    }
+                                    else
+                                    {
+                                        @((xsum).ToString("0.##"))  @((item.PriceList ?? 0).ToString("(0.##)"))        
+                                    }
+                                    }
+                                </li>
+                                }
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        <ul id="x_product_detail">
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="bottom">
+    @Html.Raw(Model.ToPagerHtml("Z10Public", "QueryDepot", ViewData["PageSize"].ToInt32(20)))
+</div>

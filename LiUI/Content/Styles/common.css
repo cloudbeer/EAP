@@ -1,0 +1,48 @@
+﻿input, button, select { vertical-align:middle; }
+.noborder{ border:none}
+select{ padding:auto 3px}
+/*.pop-box*/
+.pop-box { position:absolute; z-index:1000; padding:4px; background:#AAC7E7; -moz-box-shadow:0 0 4px rgba(0, 0, 0, 0.4); -webkit-box-shadow:0 0 4px rgba(0, 0, 0, 0.4); -o-box-shadow:0 0 4px rgba(0, 0, 0, 0.4); box-shadow:0 0 4px rgba(0, 0, 0, 0.4);left:50% }
+.pop-box h2 { height:31px; padding:0 5px; line-height:31px; font-size:14px; color:#FFF; font-weight:800}
+.pop-box h2 a,.pop-box .con .minsize,.pop-box .con .close{ float:right; width:16px; height:16px; margin:7px 0 0 5px; line-height:10; overflow:hidden; }
+.pop-box .con .minsize,.pop-box .con .close{margin:0}
+.pop-box h2 .minsize,.pop-box .con .minsize{ background:url(/content/images/icons.png) no-repeat -90px -31px; }
+.pop-box h2 .minsize:hover,.pop-box .con .minsize:hover { background:url(/content/images/icons.png) no-repeat -69px -31px; }
+.pop-box h2 .close,.pop-box .con .close{ background:url(/content/images/icons.png) no-repeat -48px -31px; }
+.pop-box h2 .close:hover,.pop-box .con .close:hover{ background:url(/content/images/icons.png) no-repeat -27px -31px; }
+.pop-box .con {overflow:hidden; border:1px solid #7FA5C2; background:#FFF; _zoom:1; padding:0 !important}
+.pop-box .bottom, .pop-min .bottom { clear:both; height:38px; padding:10px 10px 0; text-align:right; border-top:1px solid #FFF; background:#F2F8FF; _padding:8px 10px 2px; }
+.pop-box .bottom .fl { line-height:29px; }
+.pop-box .top, .notice-frame .top, .pop-min .top { height:25px; line-height:25px; padding:12px 10px 11px; text-align:right; color:#000; border-top:1px solid #FFF; border-bottom:1px solid #D6E7F3; background:#F2F8FF; }
+
+/*.msg-box*/
+.msg-box{padding:50px 15px;text-align:center;border-bottom:1px solid #D6E7F3; z-index:100}
+.msg-contents{padding:15px;text-align:left;}
+.msg-contents .form {margin:0 -15px;border:0 none;overflow:hidden;_zoom:1;}
+.msg-contents .form dd {float:left;}
+.msg-text {display:inline-block;padding-left:10px;vertical-align:middle;}
+.pop-min{width:392px; margin-left:-196px}
+.pop-query{ display:none; top:30px; text-align:left; padding:0;-moz-box-shadow:0 0 0; -webkit-box-shadow:0 0 0; -o-box-shadow:0 0 0; box-shadow:0 0 0;}
+
+button.active {background-position:-113px -416px;color:#FFFFFF;}
+button { background:#EAF1F9 url(../images/u_spr_img.png) no-repeat 0 -326px;border:0 none;color:#2D52A5;cursor:pointer;font-family:"\5b8b\4f53";height:29px;width:70px;}
+
+/*.stat-msg*/
+.stat-msg {	position:absolute;top:30%;left:50%;height:20px;line-height:20px;padding:8px 7px 10px;font-size:14px;font-weight:bold;color:#606060;z-index:10000;-webkit-border-image:url(../images/bg_msg.png) 8;-moz-border-image:url(../images/bg_msg.png) 8;-o-border-image:url(../images/bg_msg.png) 8;border-image:url(../images/bg_msg.png) 8;border-width:8px;padding:16px 15px 18px\9;border-width:0\9;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale, src="/content/images/bg_msg.png");}
+.stat-msg .icon {width:19px;height:19px;margin-right:5px;}
+
+/* tree */
+.tree h5{}
+.tree ul{margin:5px 10px}
+.tree li{ cursor:pointer}
+.tree ul ul{display:none}
+
+.hint-war{background:url(../images/tip.gif) no-repeat; color:#FFFFFF;height:27px; line-height:27px;padding-top:5px;position:absolute;text-align:left;text-indent:30px;width:197px}
+.hint-war b {background:url(../images/tip.gif) no-repeat scroll right -5px transparent;height:27px;position:absolute;right:0;top:5px;width:5px;}
+
+.hint-bot{background:url(../images/tip.gif) no-repeat 0 -5px; color:#FFFFFF;height:27px; line-height:27px;padding-bottom:5px;position:absolute;text-align:left;text-indent:30px;width:197px}
+.hint-bot b {background:url(../images/tip.gif) no-repeat scroll right -5px transparent;height:27px;line-height:27px;position:absolute;right:0;top:0;width:5px;}
+
+.text{ background:url(/content/images/textBg.gif) no-repeat; border:1px solid #B9C8E7;color:#354F77;font-size:12px;height:16px;line-height:16px;padding:4px 5px;}
+.textArea{ background:url(/content/images/textBg.gif) no-repeat; border:1px solid #B9C8E7;color:#354F77;font-size:12px;line-height:16px;padding:4px 5px;}
+.validation-summary-errors ul li{color:red}

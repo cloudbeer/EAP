@@ -1,0 +1,273 @@
+﻿@model Zippy.Data.Collections.PaginatedList<Z01Beetle.Entity.Z01Customer>
+@using Z01Beetle.Entity
+@using Z01Beetle.Entity.Helper
+@{
+    ViewBag.Title = "我的客户";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Zippy.Data.IDalProvider db = ViewBag.db as Zippy.Data.IDalProvider;
+}
+<script type="text/javascript">
+		var pageSize = @ViewBag.PageSize;
+		var controller = "/Z30Customer";
+		var sortUrl = "@Html.Raw(Model.ToSortUrl())";
+
+		$(function () {
+			$("#bQuery").click(function () {
+				window.location.href = controller + '/Index?PageSize=' + pageSize 
+										+ "&qTitle=" + encodeURIComponent($("#qTitle").val())
+										+ "&qEmail=" + encodeURIComponent($("#qEmail").val())
+										+ "&qCateID=" + encodeURIComponent($("#qCateID").val())
+										+ "&qSiteStatus=" + encodeURIComponent($("input[name=qSiteStatus]:checked").val())
+										+ "&qSuccessRatio=" + encodeURIComponent($("input[name=qSuccessRatio]:checked").val());
+										
+			});
+
+
+			$("#xdivcontent").width($("#main").width());
+            $(".xcomunication").click(function(){
+                cid = $(this).attr("rel");
+                window.location.href="/Z30Communication/Edit/?customerID=" + cid;
+            });
+		   
+			$("#btnSHCate").toggle(
+				function(){
+					$("#xdivcate").hide();
+					$("#xdivcontent").width($("#main").width());
+				},
+				function(){
+					$("#xdivcate").show();
+					$("#xdivcate").width(200);
+					$("#xdivcontent").width($("#main").width()-228);
+				}
+			);
+            $(".xcomunication_list").click(function(){
+                cid = $(this).attr("rel");
+                window.location.href="/Z30Communication/Index/" + cid;
+            });
+		});
+</script>
+<script type="text/javascript" src="/content/scripts/pagemvc.js"></script>
+<div id="contents">
+    <div id="top">
+        <div class="con clearfix">
+            <div class="fl">
+                <a class="btn img" href="javascript:;" id="btnSHCate"><i class="icon i_category"></i>
+                    分类<b></b></a>
+                @Html.Raw(ViewBag.TopMenu)
+            </div>
+            <div class="pop-box pop-query w600" rel="search">
+                <div class="con">
+                    <a rel="close" class="close mr10" href="javascript:;">关闭</a>
+                    <div class="msg-box msg-contents">
+                        <table class="query">
+                            <tr>
+                                <td class='tt'>
+                                    标题：
+                                </td>
+                                <td class='tc'>
+                                    <input type='text' class='text' id='qTitle' />
+                                </td>
+                                <td class='tt'>
+                                    Email：
+                                </td>
+                                <td class='tc'>
+                                    <input type='text' class='text' id='qEmail' />
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class='tt'>
+                                    网站拥有情况：
+                                </td>
+                                <td class='tc' colspan="3">
+                                    @Html.Raw(typeof(EAP.Logic.Z30.WebSiteStatus).ToHtmlControlList("qSiteStatus", "radio", typeof(Resources.X)))
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class='tt'>
+                                    销售机会：
+                                </td>
+                                <td class='tc' colspan="3">
+                                    @Html.Raw(typeof(EAP.Logic.Z30.SuccessRatioes).ToHtmlControlList("qSuccessRatio", "radio", typeof(Resources.X)))
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="bottom">
+                        <a class="jenter button" href="javascript:;" id='bShowAll'>显示全部<b></b></a> <a class="jenter button active"
+                            href="javascript:;" id='bQuery'>查询<b></b></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div style="float: left; width: 200px; padding: 4px 0 0 4px; display: none" id="xdivcate">
+            @{
+                Zippy.Data.Collections.PaginatedList<Z01CustomerCategory> xcates = ViewBag.xcate as Zippy.Data.Collections.PaginatedList<Z01CustomerCategory>;
+            }
+            <div class="xCategory">
+                <a href='/Z30Customer/'>全部显示</a></div>
+            @foreach (Z01CustomerCategory xcate in xcates)
+            { 
+                <div class="xCategory">
+                    <a href='/Z01Customer/Index?qCateID=@xcate.CategoryID'>
+                        @xcate.Title</a></div>
+            }
+        </div>
+        <div id="xdivcontent">
+            @{
+                var orCol = Request["orderCol"];
+                int iorCol = orCol.ToInt32();
+            }
+            <table cellspacing="0" cellpadding="0" border="0" rel="main" class="list-table">
+                <tr rel="title">
+                    <th>
+                        标题
+                        @if (iorCol == 1)
+                        { 
+                            <i title="点击排序" class="icon i_sort i_asc" rel="2"></i>
+                        }
+                        else if (iorCol == 2)
+                        { 
+                            <i title="点击排序" class="icon i_sort i_desc" rel="1"></i>
+                        }
+                        else
+                        { 
+                            <i title="点击排序" class="icon i_sort i_nosort" rel="1"></i>
+                        }
+                    </th>
+                    <th>
+                        联系人
+                    </th>
+                    <th>
+                        拜访记录
+                    </th>
+                    <th>
+                        电话
+                        @if (iorCol == 3)
+                        { 
+                            <i title="点击排序" class="icon i_sort i_asc" rel="4"></i>
+                        }
+                        else if (iorCol == 4)
+                        { 
+                            <i title="点击排序" class="icon i_sort i_desc" rel="3"></i>
+                        }
+                        else
+                        { 
+                            <i title="点击排序" class="icon i_sort i_nosort" rel="3"></i>
+                        }
+                    </th>
+                    <th>
+                        备注
+                    </th>
+                    <th>
+                        Email
+                        @if (iorCol == 7)
+                        { 
+                            <i title="点击排序" class="icon i_sort i_asc" rel="8"></i>
+                        }
+                        else if (iorCol == 8)
+                        { 
+                            <i title="点击排序" class="icon i_sort i_desc" rel="7"></i>
+                        }
+                        else
+                        { 
+                            <i title="点击排序" class="icon i_sort i_nosort" rel="7"></i>
+                        }
+                    </th>
+                    <th style="width: 150px">
+                        创建时间
+                        @if (iorCol == 11)
+                        {
+                            <i title="点击排序" class="icon i_sort i_asc" rel="12"></i>
+                        }
+                        else if (iorCol == 12)
+                        { 
+                            <i title="点击排序" class="icon i_sort i_desc" rel="11"></i>
+                        }
+                        else
+                        { 
+                            <i title="点击排序" class="icon i_sort i_nosort" rel="11"></i>
+                        }
+                    </th>
+                    <th class="w100">
+                        操作
+                    </th>
+                </tr>
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                    <tr rel="item">
+                        <td>
+                            @item.Title - @typeof(EAP.Logic.Z30.WebSiteStatus).ToStringUnique(item.CustomerStatus ?? 0, typeof(Resources.X))
+                        </td>
+                        <td>
+                            @{ var links = db.Take<Z01CustomerPerson>("CustomerID=@CustomerID", db.CreateParameter("CustomerID", item.CustomerID ?? 0));                            
+                            }
+                            <ul>
+                                @foreach (var per in links)
+                                {
+                                    <li>@per.Name - @per.Tel1 - @typeof(EAP.Logic.Z30.BuyerTypes).ToStringUnique(per.UserType ?? 0, typeof(Resources.X))</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            @{
+                                var comms = db.Take<Z30CRM.Entity.Z30Communication>("CustomerID=@CustomerID", db.CreateParameter("CustomerID", item.CustomerID ?? 0));
+                            }
+                            <ul>
+                                @foreach (var com in comms)
+                                {
+                                    <li>@com.Content - @typeof(EAP.Logic.Z30.SuccessRatioes).ToStringUnique(com.SuccessRatio ?? 0, typeof(Resources.X))</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            @item.Tel1
+                        </td>
+                        <td>
+                            @item.Remark
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td class="tc">
+                            @item.CreateDate.Value.ToString("yy-MM-dd")
+                        </td>
+                        <td>
+                            <a href='/Z01CustomerPerson/Index?qCustomerID=@item.CustomerID' class="i_xperson xperson">
+                                联系人</a> <a href='/Z01Customer/SetCategory/@item.CustomerID?ReturnUrl=@System.Web.HttpUtility.UrlEncode(Request.RawUrl)'
+								class="i_xcate xcate">分类</a> <a href="javascript:;" rel="@item.CustomerID" class="i_xedit xedit">
+                                    修改</a> <a href='javascript:;' rel="@item.CustomerID" class="i_xdel xdel">删除</a>
+                            <a href='javascript:;' rel="@item.CustomerID" class="i_xdetail xdetail">详情</a> <a href='javascript:;' rel="@item.CustomerID" class="i_xcomunication xcomunication">
+                                沟通</a> <a href='javascript:;' rel="@item.CustomerID" class="i_xcomunication_list xcomunication_list">
+                                    沟通记录</a>
+                        </td>
+                    </tr>
+					
+                    }
+                }
+                else
+                { 
+                    <!-- 没有数据的时候显示 -->
+                    <tr rel="noitem">
+                        <td colspan="100" class="msg-box h200">
+                            没有任何数据
+                        </td>
+                    </tr>
+                    <!-- 没有数据的时候显示 -->
+                }
+            </table>
+        </div>
+    </div>
+</div>
+<div id="bottom">
+    @Html.Raw(Model.ToPagerHtml("Z30Customer", "Index", ViewBag.PageSize))
+</div>

@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAP.Controllers", "EAP.Controllers\EAP.Controllers.csproj", "{EB78FC9B-3922-4C2C-8E6E-31B29B156008}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiUI", "LiUI\LiUI.csproj", "{17B3DDBC-2F41-48B1-823D-5AAEA1E64551}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAP.Logic", "EAP.Logic\EAP.Logic.csproj", "{0F1C3786-91C8-436B-85FF-B462FC8C680E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dll", "Dll\Dll.csproj", "{54592056-7DE7-44B1-B992-F0D21777A2ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zippy.SaaS", "..\Share\Zippy.SaaS\Zippy.SaaS.csproj", "{9909C665-99FF-4C6B-B3F0-D8DEE7202E5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zippy.Extender", "..\Share\Zippy.Extender\Zippy.Extender.csproj", "{5271337D-6E85-4060-90AC-DDBAAB96E484}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://li0001:8080/tfs/liwill
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = EAP.Controllers\\EAP.Controllers.csproj
+		SccProjectName1 = EAP.Controllers
+		SccLocalPath1 = EAP.Controllers
+		SccProjectUniqueName2 = LiUI\\LiUI.csproj
+		SccProjectName2 = LiUI
+		SccLocalPath2 = LiUI
+		SccProjectUniqueName3 = EAP.Logic\\EAP.Logic.csproj
+		SccProjectName3 = EAP.Logic
+		SccLocalPath3 = EAP.Logic
+		SccProjectUniqueName4 = Dll\\Dll.csproj
+		SccProjectName4 = Dll
+		SccLocalPath4 = Dll
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB78FC9B-3922-4C2C-8E6E-31B29B156008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB78FC9B-3922-4C2C-8E6E-31B29B156008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB78FC9B-3922-4C2C-8E6E-31B29B156008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB78FC9B-3922-4C2C-8E6E-31B29B156008}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17B3DDBC-2F41-48B1-823D-5AAEA1E64551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17B3DDBC-2F41-48B1-823D-5AAEA1E64551}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17B3DDBC-2F41-48B1-823D-5AAEA1E64551}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17B3DDBC-2F41-48B1-823D-5AAEA1E64551}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F1C3786-91C8-436B-85FF-B462FC8C680E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F1C3786-91C8-436B-85FF-B462FC8C680E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F1C3786-91C8-436B-85FF-B462FC8C680E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F1C3786-91C8-436B-85FF-B462FC8C680E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54592056-7DE7-44B1-B992-F0D21777A2ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54592056-7DE7-44B1-B992-F0D21777A2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54592056-7DE7-44B1-B992-F0D21777A2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54592056-7DE7-44B1-B992-F0D21777A2ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9909C665-99FF-4C6B-B3F0-D8DEE7202E5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9909C665-99FF-4C6B-B3F0-D8DEE7202E5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9909C665-99FF-4C6B-B3F0-D8DEE7202E5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9909C665-99FF-4C6B-B3F0-D8DEE7202E5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5271337D-6E85-4060-90AC-DDBAAB96E484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5271337D-6E85-4060-90AC-DDBAAB96E484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5271337D-6E85-4060-90AC-DDBAAB96E484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5271337D-6E85-4060-90AC-DDBAAB96E484}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

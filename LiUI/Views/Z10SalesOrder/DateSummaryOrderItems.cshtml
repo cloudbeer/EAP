@@ -1,0 +1,149 @@
+﻿@using Z10Cabbage.Entity
+@using Z01Beetle.Entity
+@{
+    ViewBag.Title = "日期统计";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var orders = ViewBag.orders as List<Z10Order>;
+    var items = ViewBag.items as List<Z10OrderItem>;
+
+    var orderCount = orders.Count;
+    var orderTotal = orders.Sum(s => s.Total) ?? 0;
+    var orderFeeShould = orders.Sum(s => s.FeeShould) ?? 0;
+    var orderFeePaid = orders.Sum(s => s.FeePaid) ?? 0;
+
+    var itemsCount = items.Sum(s => s.CountShould) ?? 0;
+    var itemsTotal = items.Sum(s => (s.CountShould ?? 0) * (s.Price ?? 0));
+    decimal itemsTotalIn = 0; //进货价格
+    var db = Zippy.Data.StaticDB.DB;
+    items.ForEach(item =>
+    {
+        var depotProductDetail = db.FindUnique<Z10DepotProductDetail>(item.DepotProductDetailID ?? 0);
+        if (depotProductDetail != null)
+        {
+            itemsTotalIn += (depotProductDetail.PriceStock ?? 0) * (item.CountShould ?? 0);
+        }
+    });
+
+    decimal itemsGross = itemsTotal - itemsTotalIn;
+    decimal mDiffPercent = itemsGross / (itemsTotal == 0 ? 1 : itemsTotal);
+    var categories = ViewBag._categories as List<Z01ProductCategory>;
+    var brands = ViewBag._brands as List<Z01Brand>;
+
+    var minDate = ViewBag.minDate;
+    var maxDate = ViewBag.maxDate;
+    var xorderby = ViewBag.xorderby;
+}
+<style type="text/css">
+    h4 { font-weight: bold; font-size: 16px; }
+    #stats ul { padding: 10px; margin: 3px 0 10px 0; }
+    #stats ul .title { padding: 10px 0 8px 0; font-size: 14px; color: #cc9900; font-weight: bold; }
+    #stats ul li { padding: 4px; }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $("#btnQuery").click(function () {
+            location = "/Z10SalesOrder/DateSummaryOrderItems/?toDate=" + $("#xto").val() + "&fromDate=" +
+                                $("#xfrom").val() + "&brand=" + $("#brand").val() + "&category=" + $("#category").val() + "&onlyPaid=" + $("#onlyPaid").prop("checked") + "&xorderby=" + $("#xorderby").val();
+        });
+        $("#xfrom").datepicker({ dateFormat: "yy-mm-dd" });
+        $("#xto").datepicker({ dateFormat: "yy-mm-dd" });
+
+    })
+</script>
+<div style="padding: 0px">
+    <div id="xquery">
+        日期：<input class="text w100" id="xfrom" value="@minDate.ToString("yyyy-MM-dd")" />-<input class="text w100" id="xto" value="@maxDate.AddDays(-1).ToString("yyyy-MM-dd")" />
+        品牌：<select id="brand">
+            <option value="0">请选择</option>
+            @foreach (var brand in brands)
+            { 
+                <option value="@(brand.BrandID ?? 0)">@brand.Title</option>
+            }
+        </select>
+        类别：<select id="category">
+            <option value="0">请选择</option>
+            @foreach (var cate in categories)
+            { 
+                <option value="@(cate.CategoryID ?? 0)">@Html.Raw(cate.Title)</option>
+            }
+        </select>
+        排序：<select id="xorderby">
+            <option value="1">数量</option>
+            <option value="2">营业额</option>
+        </select>
+        <label>
+            <input type="checkbox" value="0" id='onlyPaid' />仅统计已付款订单</label>
+        <input type="button" value="查询" id="btnQuery" class="mr20" />
+    </div>
+    <h4>@ViewBag.otitle
+    </h4>
+    <table class="list-table" cellspacing="0" cellpadding="0" border="0" rel="main">
+        <tr>
+            <th style="width: 50px;">
+                排名
+            </th>
+            <th>
+                品名
+            </th>
+            <td>
+                数量
+            </td>
+            <td>
+                营业额
+            </td>
+        </tr>
+        @{
+            IEnumerable<IGrouping<long?, Z10OrderItem>> xgroups = null;
+            if (xorderby == 1)
+            {
+                xgroups = items.GroupBy(s => s.ProductID).OrderByDescending(s => s.Sum(a => a.CountShould));
+            }
+            else if (xorderby == 2)
+            {
+                xgroups = items.GroupBy(s => s.ProductID).OrderByDescending(s => s.Sum(a => a.Total));
+            }
+            else if (xorderby == 2)
+            {
+                xgroups = items.GroupBy(s => s.ProductID).OrderByDescending(s => s.Sum(a => a.Total));
+            }
+            int top = 1;       
+        }
+        @foreach (var item in xgroups)
+        {     
+            <tr rel="item">
+                <td class="tr">
+                    @top
+                </td>
+                <td>
+                    <a href="/z01product/OrderHistory/@item.Key">@items.Where(s => s.ProductID == item.Key).FirstOrDefault().Title</a>
+                </td>
+                <td>
+                    @((item.Sum(s => s.CountShould) ?? 0).ToString("0.##"))
+                </td>
+                <td>
+                    @((item.Sum(s => s.Total) ?? 0).ToString("0.##"))
+                </td>
+            </tr>
+            top++;
+        }
+    </table>
+    <div style="padding: 20px" id="stats">
+        <ul>
+            <li class="title">以下查询数据为订单汇总：</li>
+            <li>订单总数：@orderCount</li>
+            <li>订单总额：@orderTotal.ToString("0.00")</li>
+            <li>订单应收：@orderFeeShould.ToString("0.00")</li>
+            <li>订单实收：@orderFeePaid.ToString("0.00")</li>
+        </ul>
+        <h4>@ViewBag.oititle
+        </h4>
+        <ul>
+            <li class="title">以下查询数据为满足条件的商品汇总：</li>
+            <li>商品总数：@itemsCount.ToString("0.##")</li>
+            <li>销售总额：@itemsTotal.ToString("0.00")</li>
+            <li>进货总额：@itemsTotalIn.ToString("0.00")</li>
+            <li>毛利：@itemsGross.ToString("0.00")</li>
+            <li>毛利率：@mDiffPercent.ToString("P")</li>
+        </ul>
+    </div>

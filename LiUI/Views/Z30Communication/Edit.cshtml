@@ -1,0 +1,165 @@
+﻿@model Z30CRM.Entity.Z30Communication
+@using Z30CRM.Entity
+@{
+    ViewBag.Title = "编辑 沟通记录";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/Content/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="/Content/Scripts/jquery-ui.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $("form").submit(function () {
+            if (isNaN($("#VisitWay").val())) { $(document).jvalidate('VisitWay', '请输入数字。', 59); return false }
+            if ($("#Content").val().length > 2000) { $(document).jvalidate('Content', '您输入的内容太多。', 59); return false }
+            if (isNaN($("#Wish").val())) { $(document).jvalidate('Wish', '请输入数字。', 59); return false }
+            if (isNaN($("#SuccessRatio").val())) { $(document).jvalidate('SuccessRatio', '请输入数字。', 59); return false }
+            if (isNaN($("#VisitDuration").val())) { $(document).jvalidate('VisitDuration', '请输入数字。', 59); return false }
+            if (isNaN($("#DisplayOrder").val())) { $(document).jvalidate('DisplayOrder', '请输入数字。', 59); return false }
+        });
+
+        $(".detail.readonly input").attr("readonly", true);
+
+        $("#NextVisitDate").datepicker({ dateFormat: "yy-mm-dd" });
+        $("#VisitDate").datepicker({ dateFormat: "yy-mm-dd" });
+
+        $(".person_detail").click(
+            function () {
+                $.post("/Z01CustomerPerson/AjaxDetail/" + $(this).attr("rel"), null, function (res) {
+                    $.jtip(res, "联系人信息", null, 600);
+                });
+            }
+            );
+    });
+</script>
+<style type="text/css">
+    .hover_detail { cursor: pointer; }
+</style>
+<div id="contents">
+    <div id="top">
+        <div class="con clearfix">
+            <div class="fl">
+                <a href="javascript:;" class="btn img" onclick="history.back()"><i class="icon i_back">
+                </i>返回<b></b></a>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        @using (Html.BeginForm())
+        {
+            <table cellspacing="0" cellpadding="0" border="0" class="detail @{if (ViewBag.IsDetail != null) { Response.Write("readonly"); }}">
+                <caption>
+                    <h3 id="title">
+                        @ViewBag.VTitle</h3>
+                </caption>
+                <tr>
+                    <td class="tt">
+                        拜访方式：
+                    </td>
+                    <td class="tc" colspan="3">
+                        @Html.Raw((typeof(EAP.Logic.Z30.VisitWays)).ToHtmlControlList("VisitWay", "radio", typeof(Resources.X), Model.VisitWay ?? 0))
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt">
+                        联络人：
+                    </td>
+                    <td class="tc" colspan="3">
+                        @if (ViewBag.Persons != null)
+                        {
+                            List<Z01Beetle.Entity.Z01CustomerPerson> persons = ViewBag.Persons as List<Z01Beetle.Entity.Z01CustomerPerson>;
+                            foreach (var p in persons)
+                            {
+                                bool mChecked = p.PersonID == Model.PersonID; 
+                                string mechecked = (mChecked?"checked='checked'":"");
+                            <input type="radio" id='__p-@p.PersonID' value="@p.PersonID" name="PersonID" @mechecked /><label for="__p-@p.PersonID"
+                            rel="@p.PersonID" class="hover_detail">@p.Name</label>
+                            @:| <a href='javascript:;' rel="@p.PersonID"class="person_detail">详情</a>
+                                                                                                                                                
+                            }
+                        }
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt">
+                        客户意向：
+                    </td>
+                    <td class="tc" colspan="3">
+                        @Html.Raw((typeof(EAP.Logic.Z30.Wishs)).ToHtmlControlList("Wish", "radio", typeof(Resources.X), Model.Wish ?? 0))
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt">
+                        成功概率：
+                    </td>
+                    <td class="tc" colspan="3">
+                        @Html.Raw((typeof(EAP.Logic.Z30.SuccessRatioes)).ToHtmlControlList("SuccessRatio", "radio", typeof(Resources.X), Model.SuccessRatio ?? 0))
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt">
+                        持续时间：
+                    </td>
+                    <td class="tc" colspan="3">
+                        @Html.TextBox("VisitDuration", Model.VisitDuration, new { @class = "text w300" })
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt">
+                        沟通内容：
+                    </td>
+                    <td class="tc" colspan="3">
+                        @Html.TextArea("Content", Model.Content, new { @class = "textArea w300", rows = 10 })
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt">
+                        下次拜访提醒日期：
+                    </td>
+                    <td class="tc" colspan="3">
+                        @Html.TextBox("NextVisitDate", Model.NextVisitDate, new { @class = "text w80" })
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tt">
+                        沟通日期：
+                    </td>
+                    <td class="tc" colspan="3">
+                        @Html.TextBox("VisitDate", (Model.VisitDate.HasValue ? Model.VisitDate.Value.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd")), new { @class = "text w80" })
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                @if (ViewBag.IsDetail == null)
+                { 
+                    <tr class="action">
+                        <td>
+                        </td>
+                        <td class="tc">
+                            <input type="submit" value="保存" class="gbutton mr20" />
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+</div>

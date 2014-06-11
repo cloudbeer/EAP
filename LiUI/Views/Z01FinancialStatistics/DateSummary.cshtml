@@ -1,0 +1,56 @@
+﻿@using Z10Cabbage.Entity
+@using Z01Beetle.Entity
+@{
+    ViewBag.Title = "日期统计";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    var fFlow = ViewBag.cashflows as List<Z01FinancialFlow>;
+    var db = Zippy.Data.StaticDB.DB;
+
+    var minDate = ViewBag.minDate;
+    var maxDate = ViewBag.maxDate;
+}
+<style type="text/css">
+    h4 { font-weight: bold; font-size: 16px; }
+    #stats ul { padding: 10px; margin: 3px 0 10px 0; }
+    #stats ul .title { padding: 10px 0 8px 0; font-size: 14px; color: #cc9900; font-weight: bold; }
+    #stats ul li { padding: 4px; }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $("#btnQuery").click(function () {
+            location = "/Z01FinancialStatistics/DateSummary/?toDate=" + $("#xto").val() + "&fromDate=" + $("#xfrom").val();
+        });
+        $("#xfrom").datepicker({ dateFormat: "yy-mm-dd" });
+        $("#xto").datepicker({ dateFormat: "yy-mm-dd" });
+
+    })
+</script>
+<div style="padding: 10px">
+    <div id="xquery">
+        日期：<input class="text w100" id="xfrom" value="@minDate.ToString("yyyy-MM-dd")" />-<input class="text w100" id="xto" value="@maxDate.AddDays(-1).ToString("yyyy-MM-dd")" />
+        <input type="button" value="查询" id="btnQuery" class="mr20" />
+    </div>
+    <div style="padding: 20px" id="stats">
+        <h4>@ViewBag.otitle
+        </h4>
+        <ul>
+            <li class="title">以下查询数据为当前时间段内财务流水汇总：</li>
+            @{
+                var fsum = fFlow.Sum(s => s.Amount) ?? 0;
+            }
+            <li>总金额：@fsum.ToString("0.00")</li>
+            <li class="title">其中，各账户的流水总计：</li>
+            @{
+                var xgroup = fFlow.GroupBy(s => s.BankID);
+            }
+            @foreach (var xbanks in xgroup)
+            {
+                var bank = db.FindUnique<Z01Bank>(xbanks.FirstOrDefault().BankID);
+                var amount = xbanks.Sum(s => s.Amount) ?? 0;
+                <li>@bank.Title: @amount.ToString("0.00")</li>
+            }
+        </ul>
+    </div>
+</div>

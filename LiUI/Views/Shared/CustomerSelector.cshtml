@@ -1,0 +1,11 @@
+﻿@using Z01Beetle.Entity;
+@model Z01Customer
+@{
+    var xtitle = "请选择客户";
+    if (Model != null)
+    {
+        xtitle = Model.Title;
+    }
+}
+@Html.Hidden("CustomerID", Model.CustomerID)
+<a href='javascript:;' class="a2select w100 fl xselect_customer">@xtitle</a>

@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0F1C3786-91C8-436B-85FF-B462FC8C680E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EAP.Logic</RootNamespace>
+    <AssemblyName>EAP.Logic</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EAP.Bus, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dll\EAP.Bus.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Dll\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Z01Beetle">
+      <HintPath>..\Dll\Z01Beetle.dll</HintPath>
+    </Reference>
+    <Reference Include="Z10Cabbage, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dll\Z10Cabbage.dll</HintPath>
+    </Reference>
+    <Reference Include="Z30CRM">
+      <HintPath>..\Dll\Z30CRM.dll</HintPath>
+    </Reference>
+    <Reference Include="Zippy.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\dll2\Zippy.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Zippy.Helper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dll\Zippy.Helper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bus\ApplicationHelper.cs" />
+    <Compile Include="Bus\AreaHelper.cs" />
+    <Compile Include="Bus\CultureHelper.cs" />
+    <Compile Include="Bus\CurrencyHelper.cs" />
+    <Compile Include="Bus\DataSourceHelper.cs" />
+    <Compile Include="Bus\Enums.cs" />
+    <Compile Include="Bus\GroupHelper.cs" />
+    <Compile Include="Bus\Helper.cs" />
+    <Compile Include="Bus\HtmlHelper.cs" />
+    <Compile Include="Bus\IndustryHelper.cs" />
+    <Compile Include="Bus\PermissionHelper.cs" />
+    <Compile Include="Bus\RoleHelper.cs" />
+    <Compile Include="Bus\RolePermissionHelper.cs" />
+    <Compile Include="Bus\TenantApplicationHelper.cs" />
+    <Compile Include="Bus\TenantHelper.cs" />
+    <Compile Include="Bus\TenantIdentityHelper.cs" />
+    <Compile Include="Bus\TextResourceHelper.cs" />
+    <Compile Include="Bus\TrustIPHelper.cs" />
+    <Compile Include="Bus\UserGroupHelper.cs" />
+    <Compile Include="Bus\UserHelper.cs" />
+    <Compile Include="Bus\UserRoleHelper.cs" />
+    <Compile Include="Bus\View\V_UserPermission.cs" />
+    <Compile Include="Bus\View\V_UserRole.cs" />
+    <Compile Include="DictResponse.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="MyDataAnnotationsModelMetadataProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserController.cs" />
+    <Compile Include="Z01\Enums.cs" />
+    <Compile Include="Z01\ExtPropertyHelper.cs" />
+    <Compile Include="Z01\Helper.cs" />
+    <Compile Include="Z01\HtmlHelper.cs" />
+    <Compile Include="Z01\PropertyTemplateHelper.cs" />
+    <Compile Include="Z01\View\V_FinancialFlow.cs" />
+    <Compile Include="Z01\Z01BankHelper.cs" />
+    <Compile Include="Z01\Z01BrandHelper.cs" />
+    <Compile Include="Z01\Z01ConfigHelper.cs" />
+    <Compile Include="Z01\Z01CustomerCategoryHelper.cs" />
+    <Compile Include="Z01\Z01CustomerHelper.cs" />
+    <Compile Include="Z01\Z01CustomerInCategoryHelper.cs" />
+    <Compile Include="Z01\Z01CustomerPersonHelper.cs" />
+    <Compile Include="Z01\Z01FinancialCategoryHelper.cs" />
+    <Compile Include="Z01\Z01FinancialFlowHelper.cs" />
+    <Compile Include="Z01\Z01PaperTemplateHelper.cs" />
+    <Compile Include="Z01\Z01ProductCategoryHelper.cs" />
+    <Compile Include="Z01\Z01ProductExtValueHelper.cs" />
+    <Compile Include="Z01\Z01ProductHelper.cs" />
+    <Compile Include="Z01\Z01ProductInCategoryHelper.cs" />
+    <Compile Include="Z01\Z01TitleHelper.cs" />
+    <Compile Include="Z01\Z01UnitHelper.cs" />
+    <Compile Include="Z01\Z01UserInfoHelper.cs" />
+    <Compile Include="Z10\Enums.cs" />
+    <Compile Include="Z10\Helper.cs" />
+    <Compile Include="Z10\HtmlHelper.cs" />
+    <Compile Include="Z10\Order.cs" />
+    <Compile Include="Z10\View\V_DepotFlow.cs" />
+    <Compile Include="Z10\View\V_DepotProduct.cs" />
+    <Compile Include="Z10\View\V_OrderItemDetail.cs" />
+    <Compile Include="Z10\Z10ConfigHelper.cs" />
+    <Compile Include="Z10\Z10DepotFlowHelper.cs" />
+    <Compile Include="Z10\Z10DepotHelper.cs" />
+    <Compile Include="Z10\Z10DepotProductHelper.cs" />
+    <Compile Include="Z10\Z10OrderHelper.cs" />
+    <Compile Include="Z10\Z10OrderItemHelper.cs" />
+    <Compile Include="Z30\Enums.cs" />
+    <Compile Include="Z30\QuickCommunication.cs" />
+    <Compile Include="Z30\Z30CommunicationHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SQLData\Permissions.sql" />
+    <Content Include="SQLData\temp.sql" />
+    <Content Include="SQLData\tools.sql" />
+    <Content Include="SQLData\update.sql" />
+    <Content Include="SQLData\View.sql" />
+    <Content Include="SQLData\Z01View.sql" />
+    <Content Include="SQLData\Z10View.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Share\Zippy.Extender\Zippy.Extender.csproj">
+      <Project>{5271337D-6E85-4060-90AC-DDBAAB96E484}</Project>
+      <Name>Zippy.Extender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Share\Zippy.SaaS\Zippy.SaaS.csproj">
+      <Project>{9909C665-99FF-4C6B-B3F0-D8DEE7202E5F}</Project>
+      <Name>Zippy.SaaS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

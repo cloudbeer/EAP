@@ -1,0 +1,288 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Zippy.SaaS</name>
+    </assembly>
+    <members>
+        <member name="T:Zippy.SaaS.Entity.CRUD">
+            <summary>
+            数据库操作，增查改删
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.CRUD.Check">
+            <summary>
+            审批
+            </summary>
+        </member>
+        <member name="T:Zippy.SaaS.Entity.MessageCodes">
+            <summary>
+            用于交换数据的状态
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.MessageCodes.ParameterRequired">
+            <summary>
+            参数未输入
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.MessageCodes.FormatError">
+            <summary>
+            参数错误
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.UserTypes.Default">
+            <summary>
+            默认类型
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.UserTypes.TenantUser">
+            <summary>
+            主机用户
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.UserTypes.TenantGod">
+            <summary>
+            主机超级管理员
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.UserTypes.SystemManager">
+            <summary>
+            系统管理员
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.UserStatus.Default">
+            <summary>
+            默认用户
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.UserStatus.TenantApproved">
+            <summary>
+            租户认证
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.UserStatus.TenantBanned">
+            <summary>
+            租户禁止
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.UserStatus.SystemBanned">
+            <summary>
+            系统禁止
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.TenantStatus.UnHandled">
+            <summary>
+            未处理
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.TenantStatus.Approved">
+            <summary>
+            认证主机
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Entity.TenantStatus.Banned">
+            <summary>
+            禁止
+            </summary>
+        </member>
+        <member name="T:Zippy.SaaS.Entity.MvcPermission">
+            <summary>
+            mvc的权限控制
+            </summary>
+        </member>
+        <member name="P:Zippy.SaaS.Entity.MvcPermission.Controller">
+            <summary>
+            控制器的名称
+            </summary>
+        </member>
+        <member name="P:Zippy.SaaS.Entity.MvcPermission.CRUD">
+            <summary>
+            权限
+            </summary>
+        </member>
+        <member name="T:Zippy.SaaS.UserTypes">
+            <summary>
+            用户类型，表示用户是否是管理员
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.UserTypes.Normal">
+            <summary>
+            普通用户
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.UserTypes.HostAdministrator">
+            <summary>
+            租户管理员
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.UserTypes.SystemAdministrator">
+            <summary>
+            系统管理员
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.UserTypes.CFO">
+            <summary>
+            财务官，可以查看财务方面的信息
+            </summary>
+        </member>
+        <member name="T:Zippy.SaaS.Helper.TenantHelper">
+            <summary>
+            租户帮助类
+            </summary>
+        </member>
+        <member name="M:Zippy.SaaS.Helper.TenantHelper.Get(System.String,Zippy.Data.IDalProvider)">
+            <summary>
+            通过 Flag 获取租户
+            </summary>
+            <param name="flag"></param>
+            <param name="db"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.SaaS.Helper.TenantHelper.Get(System.Guid,Zippy.Data.IDalProvider)">
+            <summary>
+            通过 ID 获取租户
+            </summary>
+            <param name="tenantID"></param>
+            <param name="db"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Zippy.SaaS.Helper.UserHelper">
+            <summary>
+            与用户相关的帮助类
+            </summary>
+        </member>
+        <member name="M:Zippy.SaaS.Helper.UserHelper.Get(System.String,System.Guid,Zippy.Data.IDalProvider)">
+            <summary>
+            获取用户
+            </summary>
+            <param name="userName"></param>
+            <param name="tenantID"></param>
+            <param name="db"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.SaaS.Helper.UserHelper.LogonFromCookie(Zippy.Data.IDalProvider)">
+            <summary>
+            从 cookie 中登录。
+            </summary>
+        </member>
+        <member name="T:Zippy.SaaS.Mvc.Controller">
+            <summary>
+            基础控制器
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Mvc.Controller._ContollerName">
+            <summary>
+            控制器的名字
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Mvc.Controller._ActionName">
+            <summary>
+            操作名称
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Mvc.Controller.db">
+            <summary>
+            数据操作类
+            </summary>
+        </member>
+        <member name="M:Zippy.SaaS.Mvc.Controller.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>
+            执行操作前
+            </summary>
+            <param name="filterContext"></param>
+        </member>
+        <member name="M:Zippy.SaaS.Mvc.Controller.WebMessage(Zippy.SaaS.Entity.WebMessage)">
+            <summary>
+            输出一个 XML 的 WebMessage
+            </summary>
+            <param name="msg"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.SaaS.Mvc.Controller.WebMessage(Zippy.SaaS.Entity.MessageCodes,System.String)">
+            <summary>
+            输出一个 XML 的 WebMessage
+            </summary>
+            <param name="code"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.SaaS.Mvc.Controller.WebMessage(Zippy.SaaS.Entity.MessageCodes,System.String,System.String)">
+            <summary>
+            输出一个 XML 的 WebMessage
+            </summary>
+            <param name="code"></param>
+            <param name="flag"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.SaaS.Mvc.Controller.Return">
+            <summary>
+            返回，返回的 Url 存储在Request 或者 Session中，键为ReturnUrl
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.SaaS.Mvc.Controller.Debug">
+            <summary>
+            测试
+            </summary>
+        </member>
+        <member name="T:Zippy.SaaS.Mvc.__TenantController">
+            <summary>
+            租户的基础控制器
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Mvc.__TenantController._tenant">
+            <summary>
+            Session 的租户
+            </summary>
+        </member>
+        <member name="M:Zippy.SaaS.Mvc.__TenantController.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>
+            执行 action 之前
+            </summary>
+            <param name="filterContext"></param>
+        </member>
+        <member name="T:Zippy.SaaS.Mvc.__UserController">
+            <summary>
+            用户的基础控制器，用户必须存在于租户里。因为用户的权限存储在各个分模块中，必须在子类中实现QueryPermission。
+            而此类的直属子类应该是具体控制器的一个父类。
+            </summary>
+        </member>
+        <member name="M:Zippy.SaaS.Mvc.__UserController.QueryPermission">
+            <summary>
+            查询用户的增删改查的权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Zippy.SaaS.Mvc.__UserController._crud">
+            <summary>
+            增删改查权限
+            </summary>
+        </member>
+        <member name="F:Zippy.SaaS.Mvc.__UserController._user">
+            <summary>
+            Session 中的用户
+            </summary>
+        </member>
+        <member name="M:Zippy.SaaS.Mvc.__UserController.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>
+            执行之前
+            </summary>
+            <param name="filterContext"></param>
+        </member>
+        <member name="P:Zippy.SaaS.Entity.WebMessage.Code">
+            <summary>
+            响应编码
+            </summary>
+        </member>
+        <member name="P:Zippy.SaaS.Entity.WebMessage.Flag">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="P:Zippy.SaaS.Entity.WebMessage.Result">
+            <summary>
+            响应的信息
+            </summary>
+        </member>
+    </members>
+</doc>

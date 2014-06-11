@@ -1,0 +1,284 @@
+﻿@using Z01Beetle.Entity
+@model Zippy.Data.Collections.PaginatedList<Z01Beetle.Entity.Z01Product>
+@{
+    ViewBag.Title = "商品列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var brands = ViewBag.brands as List<Z01Brand>;
+    var categories = ViewBag.categories as List<Z01ProductCategory>;
+    var isCFO = EAP.Logic.Helper.IsCFO();
+}
+<style type="text/css">
+    .tr a { display: block; min-width: 100px; font-weight: bold; }
+        .tr a:hover { color: #ff0000; background: #ffeeee; }
+</style>
+<script type="text/javascript">
+
+    var pageSize = @ViewData["PageSize"];
+    var controller = "/Z01Product";
+    var sortUrl = "@Html.Raw(Model.ToSortUrl())";
+
+    $(function () {
+        $("#btnQuery").click(function () {
+            queryProduct();
+        });
+
+        $("#q").keypress(function (event) {
+            if (event.which == 13) {
+                queryProduct();
+            }
+        });
+
+        function queryProduct() {
+            window.location.href = '/Z01Product/Index/?PageSize=' + pageSize
+                                        + "&qTitle=" + encodeURIComponent($("#q").val())
+                                        + "&qCateID=" + encodeURIComponent($("#category").val())
+                                        + "&qBrandID=" + encodeURIComponent($("#brand").val())
+                                        + "&qStatus=" + encodeURIComponent($("#xsts").val())
+
+        }
+        
+            
+        $(".v_detail").click(function(){
+            $("#x_product_detail").html("");
+            xthis=$(this);
+            pid = xthis.attr("rel");
+            $.post("/Z10DepotStatistics/ProductDetail/", {id:pid}, function(res){
+                $("#x_product_detail").html(res);
+                xthis.parent().append($("#x_product_detail").show());
+            });
+        });
+        $(".xdetail").click(function(){
+            xthis=$(this);
+            pid = xthis.attr("rel");
+            location="/Z01Product/OrderDetail/"+pid;
+        });
+    });
+</script>
+<script type="text/javascript" src="/content/scripts/pagemvc.js"></script>
+<ul id="x_product_detail" style='display: none'>
+    <li>载入中</li>
+</ul>
+<div id="contents">
+    <div id="top">
+        <div class="con clearfix">
+            <div class="fl">
+                @Html.Raw(ViewData["TopMenu"].ToString())
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="xdivcontent">
+            <div id="dQuery" style="padding: 10px">
+                关键字：<input id="q" class="text w100" />
+                品牌：<select id="brand">
+                    <option value="0">请选择</option>
+                    @foreach (var brand in brands)
+                    {
+                        <option value="@(brand.BrandID ?? 0)">@brand.Title</option>
+                    }
+                </select>
+                类别：<select id="category">
+                    <option value="0">请选择</option>
+                    @foreach (var cate in categories)
+                    {
+                        <option value="@(cate.CategoryID ?? 0)">@Html.Raw(cate.Title)</option>
+                    }
+                </select>
+                状态：<select id="xsts">
+                    <option value="0">全部</option>
+                    <option value="1">正常</option>
+                    <option value="2">禁用的</option>
+                </select>
+                <input type="button" value="查询" id="btnQuery" class="button mr20" />
+            </div>
+            @{
+                var orCol = Request["orderCol"];
+                int iorCol = orCol.ToInt32();
+            }
+            <table cellspacing="0" cellpadding="0" border="0" rel="main" class="list-table">
+                <tr rel="title">
+                    <th>编号
+                        @if (iorCol == 13)
+                        { 
+                            <i title="点击排序" class="icon i_sort i_asc" rel="14"></i>
+                        }
+                        else if (iorCol == 14)
+                        {
+                            <i title="点击排序" class="icon i_sort i_desc" rel="13"></i>
+                        }
+                        else
+                        {
+                            <i title="点击排序" class="icon i_sort i_nosort" rel="13"></i>
+                        }
+                    </th>
+                    <th>品牌
+                    </th>
+                    <th>标题
+                        @if (iorCol == 1)
+                        { 
+                            <i title="点击排序" class="icon i_sort i_asc" rel="2"></i>
+                        }
+                        else if (iorCol == 2)
+                        {
+                            <i title="点击排序" class="icon i_sort i_desc" rel="1"></i>
+                        }
+                        else
+                        {
+                            <i title="点击排序" class="icon i_sort i_nosort" rel="1"></i>
+                        }
+                    </th>
+                    <th style="min-width: 100px">库存(点击看看)
+                    </th>
+                    <th>分类
+                    </th>
+                    <th style="width: 100px">标价
+                        @if (iorCol == 5)
+                        { 
+                            <i title="点击排序" class="icon i_sort i_asc" rel="6"></i>
+                        }
+                        else if (iorCol == 6)
+                        {
+                            <i title="点击排序" class="icon i_sort i_desc" rel="5"></i>
+                        }
+                        else
+                        {
+                            <i title="点击排序" class="icon i_sort i_nosort" rel="5"></i>
+                        }
+                    </th>
+                    @if (isCFO)
+                    { 
+                        <th>进价
+                        </th>
+                        <th>折扣
+                        </th>
+                    }
+                    <th style="width: 120px">操作
+                    </th>
+                </tr>
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+
+                        string btitle = "";
+                        var brand = brands.Where(s => s.BrandID == item.BrandID).FirstOrDefault();
+                        if (brand != null)
+                        {
+                            btitle = brand.Title;
+                        }
+
+                        string unitLabel = "/个";
+                        Z01Unit unit = Z01Beetle.Entity.Helper.Z01ProductHelper.GetUnitIDEntity(Zippy.Data.StaticDB.DB, item);
+                        if (unit != null)
+                        {
+                            unitLabel = "/" + unit.Title;
+                        }
+                    <tr rel="item">
+                        <td>
+                            @item.ProductID
+                        </td>
+                        <td>
+                            <a href='/z01product/Index/?qBrandID=@item.BrandID'>
+                                @btitle</a>
+                        </td>
+                        <td>
+                            <a href='/z01product/orderHistory/@item.ProductID' class="i_xdetail xdetail bold">
+                                @item.Title</a>
+                        </td>
+                        <td class="tr">
+                            @{
+                        var xsum = Zippy.Data.StaticDB.DB.Take<Z10Cabbage.Entity.Z10DepotProduct>("ProductID=" + item.ProductID).Sum(s => s.StockSum) ?? 0;
+                        if (xsum <= 0)
+                        {
+                                <strong style='color: red; font-weight: bold'>无货</strong>
+                            if (item.ProductStatus.BitIs(EAP.Logic.Z01.ProductStatus.Trashed))
+                            {
+                                <button class="enablePro" rel="@item.ProductID">启用</button>
+                            }
+                            else
+                            {
+                                <button class="disablePro" rel="@item.ProductID">禁用</button> 
+                            }
+                        }
+                        else
+                        {
+                                <a href="javascript:;" class="v_detail" rel="@item.ProductID" style="min-width: 100px;">
+                                    @((xsum).ToString("0.##"))</a>
+                            
+                        }
+                            }
+                        </td>
+                        <td>
+                            @{
+                        string sql = "CategoryID in (select CategoryID from Z01ProductInCategory where ProductID=@ProductID)";
+                        var my_categories = Zippy.Data.StaticDB.DB.Take<Z01ProductCategory>(sql, Zippy.Data.StaticDB.DB.CreateParameter("ProductID", item.ProductID));
+                        foreach (var cate in my_categories)
+                        {
+                                <a href="/Z01Product/index/?qCateID=@cate.CategoryID">@cate.Title</a> @:|
+                            
+                        }
+                                
+                            }
+                        </td>
+                        <td class="tr">
+                            @item.Currency @((item.PriceList ?? 0).ToString("0.##"))
+                            @unitLabel
+                        </td>
+                        @if (isCFO)
+                        { 
+                            <td class="tr">
+                                @((item.PriceStock ?? 0).ToString("0.##"))
+                            </td>
+                            <td class="tr">
+                                @if (item.PriceList > 0)
+                                {  
+                                    @(((item.PriceStock ?? 0) / (item.PriceList ?? 1)).ToString("0.##"))
+                                }
+                            </td>
+                        }
+                        <td>
+                            <a href='/Z01Product/SetCategory/@item.ProductID?ReturnUrl=@System.Web.HttpUtility.UrlEncode(Request.RawUrl)'
+                                class="i_xcate xcate">分类</a> <a href="javascript:;" rel="@item.ProductID" class="i_xedit xedit">修改</a>
+
+                        </td>
+                    </tr>                
+                    }
+                }
+                else
+                { 
+                    <!-- 没有数据的时候显示 -->
+                    <tr rel="noitem">
+                        <td colspan="9" class="msg-box h200">没有任何数据
+                        </td>
+                    </tr>
+                    <!-- 没有数据的时候显示 -->
+                }
+            </table>
+        </div>
+    </div>
+</div>
+<div id="bottom">
+    @Html.Raw(Model.ToPagerHtml("Z01Product", "Index", ViewData["PageSize"].ToInt32(20)))
+</div>
+<script type="text/javascript">
+    $(function(){
+        $(".enablePro").click(function(){
+            xthis = $(this);
+            xid = xthis.attr("rel");
+            $.post("/Z01Product/SetStatus/"+xid, {sts:1},function(res){
+                if (res.state){
+                    xthis.parent().parent().remove();
+                }
+            },"json");
+        });
+        $(".disablePro").click(function(){
+            xthis = $(this);
+            xid = xthis.attr("rel");
+            $.post("/Z01Product/SetStatus/"+xid, {sts:2},function(res){
+                if (res.state){
+                    xthis.parent().parent().remove();
+                }
+            },"json");
+        });
+    });
+</script>

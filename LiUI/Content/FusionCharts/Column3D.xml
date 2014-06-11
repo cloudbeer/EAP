@@ -1,0 +1,15 @@
+<graph caption='Flows' xAxisName='Month' yAxisName='RMB' decimalPrecision='0' formatNumberScale='0' baseFontColor='990000'>
+  <set name='2009-11' value='462' color='AFD8F8' />
+  <set name='2009-12' value='462' color='AFD8F8' />
+  <set name='2010-01' value='462' color='AFD8F8' />
+  <set name='2010-02' value='462' color='AFD8F8' />
+  <set name='2010-03' value='462' color='AFD8F8' />
+  <set name='2010-04' value='462' color='AFD8F8' />
+  <set name='2010-05' value='462' color='AFD8F8' />
+  <set name='2010-06' value='462' color='AFD8F8' />
+  <set name='2010-07' value='462' color='AFD8F8' />
+  <set name='2010-08' value='462' color='AFD8F8' />
+  <set name='2010-09' value='462' color='AFD8F8' />
+  <set name='2010-10' value='462' color='AFD8F8' />
+  <set name='2010-11' value='462' color='AFD8F8' />
+</graph>

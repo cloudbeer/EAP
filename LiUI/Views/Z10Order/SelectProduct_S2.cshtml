@@ -1,0 +1,84 @@
+﻿@model List<Z10Cabbage.Entity.Z10DepotProductDetail>
+@{
+    ViewBag.Title = "选择库存商品";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var _product = ViewBag._product as Z01Beetle.Entity.Z01Product;
+}
+<script type="text/javascript">
+    $(function () {
+        $(".xselect").click(function () {
+            _mum = $(this).parent();
+            _price = _mum.find(".price").val();
+            _itemid = _mum.find(".itemid").val();
+            _ptitle = _mum.find(".ptitle").val();
+            _pid = _mum.find(".pid").val();
+            _color = _mum.find(".color").val();
+            _size = _mum.find(".size").val();
+            _depot = _mum.find(".depot").val();
+            parent.SetProductID(_pid, _ptitle, _price, _itemid, _color, _size, _depot);
+
+            window.parent.showQuery();
+            //$()
+            //                tr = $(this).parent().parent();
+            //                title = tr.find(".productTitle").html();
+            //                title = $.trim(title);
+            //                price = tr.find(".stockPrice").val();
+            //                parent.SetProductID(id, title, price);
+            //                parent.$("#xaddProduct").attr("show", "true");
+        });
+    });
+</script>
+<div id="contents">
+    <div id="xmain">
+        <div class="tr">
+            <a href='javascript:window.parent.showQuery();history.back()'>返回</a></div>
+        <table cellspacing="0" cellpadding="0" border="0" rel="main" class="list-table">
+            <tr rel="title">
+                <th>
+                    标题
+                </th>
+                <th>
+                    库存
+                </th>
+                <th class="w30">
+                    操作
+                </th>
+            </tr>
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    var depotTitle = Zippy.Data.StaticDB.DB.FindUnique<Z10Cabbage.Entity.Z10Depot>("DepotID=@DepotID", "Title", Zippy.Data.StaticDB.DB.CreateParameter("DepotID", item.DepotID));
+                <tr rel="item">
+                    <td class='productTitle'>
+                        @_product.Title @item.ExtColor @item.ExtSize
+                    </td>
+                    <td class="tr">
+                        @item.StockSum.Value.ToString("0.##")
+                    </td>
+                    <td>
+                        <a href="javascript:;" class="xselect">选择</a>
+                        <input type="hidden" class='price' value='@_product.PriceList.Value.ToString("0.##")' />
+                        <input type="hidden" class='itemid' value='@item.DepotProductID' />
+                        <input type="hidden" class='ptitle' value='@Html.Encode(_product.Title)' />
+                        <input type="hidden" class='pid' value='@_product.ProductID' />
+                        <input type="hidden" class='depot' value='@Html.Encode(depotTitle)' />
+                        <input type="hidden" class='color' value='@Html.Encode(item.ExtColor)' />
+                        <input type="hidden" class='size' value='@Html.Encode(item.ExtSize)' />
+                    </td>
+                </tr>
+                }
+            }
+            else
+            {
+                <!-- 没有数据的时候显示 -->
+                <tr rel="noitem">
+                    <td colspan="100" class="msg-box h200">
+                        没有任何数据，或者库存为0，请进货。
+                    </td>
+                </tr>
+                <!-- 没有数据的时候显示 -->
+            }
+        </table>
+    </div>
+</div>

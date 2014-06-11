@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EB78FC9B-3922-4C2C-8E6E-31B29B156008}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EAP.Controllers</RootNamespace>
+    <AssemblyName>EAP.Controllers</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EAP.Bus, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dll\EAP.Bus.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\Dll\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Z01Beetle">
+      <HintPath>..\Dll\Z01Beetle.dll</HintPath>
+    </Reference>
+    <Reference Include="Z10Cabbage, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dll\Z10Cabbage.dll</HintPath>
+    </Reference>
+    <Reference Include="Z30CRM">
+      <HintPath>..\Dll\Z30CRM.dll</HintPath>
+    </Reference>
+    <Reference Include="Zippy.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\dll2\Zippy.Data.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountController.cs" />
+    <Compile Include="CabbageController.cs" />
+    <Compile Include="CurrencyController.cs" />
+    <Compile Include="ErrorController.cs" />
+    <Compile Include="GroupController.cs" />
+    <Compile Include="HelperController.cs" />
+    <Compile Include="InitController.cs" />
+    <Compile Include="PermissionController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleController.cs" />
+    <Compile Include="SystemController.cs" />
+    <Compile Include="UploadController.cs" />
+    <Compile Include="UserController.cs" />
+    <Compile Include="Z01\Z01BankController.cs" />
+    <Compile Include="Z01\Z01BrandController.cs" />
+    <Compile Include="Z01\Z01CustomerCategoryController.cs" />
+    <Compile Include="Z01\Z01CustomerController.cs" />
+    <Compile Include="Z01\Z01CustomerPersonController.cs" />
+    <Compile Include="Z01\Z01PaperTemplateController.cs" />
+    <Compile Include="Z01\Z01ProductCategoryController.cs" />
+    <Compile Include="Z01\Z01ProductController.cs" />
+    <Compile Include="Z01\Z01TitleController.cs" />
+    <Compile Include="Z01\Z01UnitController.cs" />
+    <Compile Include="Z01\Z01FinancialStatisticsController.cs" />
+    <Compile Include="Z10\Z10MoveController.cs" />
+    <Compile Include="Z10\Z10PublicController.cs" />
+    <Compile Include="Z10\Z10ReturnedController.cs" />
+    <Compile Include="Z10\Z10DepotStatisticsController.cs" />
+    <Compile Include="Z10\Z10DepotController.cs" />
+    <Compile Include="Z10\Z10DepotProductController.cs" />
+    <Compile Include="Z10\Z10OrderController.cs" />
+    <Compile Include="Z10\Z10OutDepotController.cs" />
+    <Compile Include="Z10\Z10SaleReturnedController.cs" />
+    <Compile Include="Z10\Z10SalesOrderController.cs" />
+    <Compile Include="Z10\Z10StockOrderController.cs" />
+    <Compile Include="Z10\Z10InventoryOutOrderController.cs" />
+    <Compile Include="Z10\Z10InventoryInOrderController.cs" />
+    <Compile Include="Z30\Z30CommunicationController.cs" />
+    <Compile Include="Z30\Z30CustomerController.cs" />
+    <Compile Include="Z30\Z30SalesController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Share\Zippy.Extender\Zippy.Extender.csproj">
+      <Project>{5271337D-6E85-4060-90AC-DDBAAB96E484}</Project>
+      <Name>Zippy.Extender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Share\Zippy.SaaS\Zippy.SaaS.csproj">
+      <Project>{9909C665-99FF-4C6B-B3F0-D8DEE7202E5F}</Project>
+      <Name>Zippy.SaaS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EAP.Logic\EAP.Logic.csproj">
+      <Project>{0F1C3786-91C8-436B-85FF-B462FC8C680E}</Project>
+      <Name>EAP.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

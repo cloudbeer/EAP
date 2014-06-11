@@ -1,0 +1,59 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "销售列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Zippy.Data.IDalProvider db = ViewBag.db as Zippy.Data.IDalProvider;
+}
+<div id="contents">
+    <div id="top">
+        <div class="con clearfix">
+            <div class="fl">
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <table cellspacing="0" cellpadding="0" border="0" rel="main" class="list-table">
+            <tr rel="title">
+                <th>
+                    姓名
+                </th>
+                <th>
+                    统计
+                </th>
+                <th>
+                    查询
+                </th>
+            </tr>
+            @foreach (System.Data.DataRow row in Model.Rows)
+            {
+                <tr rel="item">
+                    <td>
+                        @row["Name"]
+                    </td>
+                    <td>
+                        @{
+                var now = DateTime.Now;
+                var tommorow = DateTime.Now.AddDays(1);
+                var todayCustomer = db.Count<Z01Beetle.Entity.Z01Customer>("Principal=@Principal and CreateDate>=@SDate and CreateDate<@EDate",
+                    db.CreateParameter("Principal", row["UserID"]), db.CreateParameter("SDate", new DateTime(now.Year, now.Month, now.Day)),
+                    db.CreateParameter("EDate", new DateTime(tommorow.Year, tommorow.Month, tommorow.Day)));
+                var allCustomer = db.Count<Z01Beetle.Entity.Z01Customer>("Principal=@Principal",
+                    db.CreateParameter("Principal", row["UserID"]));
+
+                //var todayVisit = db.Count<Z01Beetle.Entity.Z01Customer>("Principal=@Principal and CreateDate>=@SDate and CreateDate<@EDate",
+                //    db.CreateParameter("Principal", row["UserID"]), db.CreateParameter("SDate", new DateTime(now.Year, now.Month, now.Day)),
+                //    db.CreateParameter("EDate", new DateTime(tommorow.Year, tommorow.Month, tommorow.Day)));
+                //var allVisit = db.Count<Z01Beetle.Entity.Z01Customer>("Principal=@Principal",
+                //    db.CreateParameter("Principal", row["UserID"]));
+                        }
+                        <span style="color: red; width: 100px; display: inline-block">今日客户新增 @todayCustomer</span>
+                        <span style="width: 100px; display: inline-block">所有客户 @allCustomer</span>
+                    </td>
+                    <td>
+                        客户 | 拜访
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

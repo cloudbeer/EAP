@@ -1,0 +1,814 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Zippy.XWeb</name>
+    </assembly>
+    <members>
+        <member name="M:Zippy.XWeb.CssHelper.CovertBGRepeat(System.Web.UI.CssStyleCollection)">
+            <summary>
+            将 style 的字符串 变换成 enum 的
+            </summary>
+            <param name="csss"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Zippy.XWeb.InputTypes.Text">
+            <summary>
+            普通文本，对内容进行Html编码。
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.InputTypes.TextArea">
+            <summary>
+            普通文本，对内容进行Html编码。
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.InputTypes.OriginalText">
+            <summary>
+            代码段，允许插入js或者html代码，以 textarea 方式插入，原样输出
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.InputTypes.Html">
+            <summary>
+            超文本
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.InputTypes.Image">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.InputTypes.Color">
+            <summary>
+            颜色
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.InputTypes.Date">
+            <summary>
+            日期
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.InputTypes.Email">
+            <summary>
+            email
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.InputTypes.Uri">
+            <summary>
+            网址资源
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.InputTypes.Selectable">
+            <summary>
+            选择框，选择此项，则需要定义选项内容
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.InputTypes.Attachment">
+            <summary>
+            附件
+            </summary>        
+        </member>
+        <member name="T:Zippy.XWeb.PageTypes">
+            <summary>
+            页面类型
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.PageTypes.System">
+            <summary>
+            系统页面，不能被删除的页面
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.PageTypes.Custom">
+            <summary>
+            自定义页面
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.PageTypes.Query">
+            <summary>
+             需要动态参数输入，此类页面无法被直接加入静态导航，如文章详情页面
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.PageTypes.Default">
+            <summary>
+            首页
+            </summary>
+        </member>
+        <member name="T:Zippy.XWeb.UIStatus">
+            <summary>
+            标记页面/模板/皮肤等的状态
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.UIStatus.Normal">
+            <summary>
+            普通
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.UIStatus.Default">
+            <summary>
+            默认页面
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.TemplateTypes.Normal">
+            <summary>
+            普通模板
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.TemplateTypes.Default">
+            <summary>
+            默认模板，当页面缺失的时候则加载此模板
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.StyleTypes.Normal">
+            <summary>
+            普通
+            </summary>
+        </member>
+        <member name="F:Zippy.XWeb.StyleTypes.Default">
+            <summary>
+            默认，当页面缺失的时候则加载此
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.HtmlControls.BoxBase.GetStyle(System.String)">
+             <summary>
+            返回"" 或者 style="..."
+             </summary>
+             <param name="style"></param>
+             <returns></returns>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.CKEditor.JsNS">
+            <summary>
+            ckeditor 的命名空空间
+            </summary>
+        </member>
+        <member name="T:Zippy.XWeb.HtmlControls.FlashUploader">
+            <summary>
+            上传的方法写在 调用页 _action = "upload"
+            调用页也需要编写 _action = "fileUploaded" 的实现
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.FlashUploader.FileTypes">
+            <summary>
+            such as: "*.jpg;*.gif;*.png"
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.PanelBase.AidID">
+            <summary>
+            这是一个辅助ID，用来指导 最外层div 的名字，在 IAP 中，讲把插件的 ID指定进去
+            这样可以让htm 中的 ID不重复。
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.PanelBase.Disabled">
+            <summary>
+            控件是否可用
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.PanelBase.CssClass">
+            <summary>
+            样式
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.PanelBase.Skin">
+            <summary>
+            外框皮肤样式名称
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.PanelBase.ContentSkin">
+            <summary>
+            内容皮肤样式名称
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.PanelBase.SkinMode">
+            <summary>
+            外框皮肤模型（如 SuperPanel, SimplePanel）
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.PanelBase.ContentSkinMode">
+            <summary>
+            内容皮肤模型（如 GoodsList）
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.PanelBase.Width">
+            <summary>
+            宽度，0则为100%
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.PanelBase.Height">
+            <summary>
+            高度
+            </summary>
+        </member>
+        <member name="T:Zippy.XWeb.HtmlControls.PanelClosable">
+            <summary>
+            一个带有 title 和关闭按钮的 panel
+            </summary>
+        </member>
+        <!-- 对于成员“T:Zippy.XWeb.HtmlControls.PanelType”忽略有格式错误的 XML 注释 -->
+        <member name="P:Zippy.XWeb.HtmlControls.XCanvas.Padding">
+            <summary>
+            inner Padding
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XCanvas.Margin">
+            <summary>
+            inner Margin
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XHtmlAnchor.CssClass">
+            <summary>
+            样式
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XHtmlAnchorCreate.CssClass">
+            <summary>
+            样式
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XHtmlAnchorList.CssClass">
+            <summary>
+            样式
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XMenuBar.Items">
+            <summary>
+            Gets or sets the items.
+            </summary>
+            <value>The items.</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XMenuBox.ParentID">
+            <summary>
+            父亲ID，用于多个菜单的初始化，在IAP中，请指定 为 插件 的 ID
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XMenuBox.HideSubMenu">
+            <summary>
+            是否禁用子菜单
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XMenuBox.Items">
+            <summary>
+            子菜单
+            </summary>
+        </member>
+        <member name="T:Zippy.XWeb.HtmlControls.XPager">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XPager.Label_Goto">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTabPanel.ShowTitle">
+            <summary>
+            Panel 的标题
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTabPanel.SelectIndex">
+            <summary>
+            Panel 的标题
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.HtmlControls.XTreeBox.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Zippy.XWeb.HtmlControls.XTreeBox"/> class.
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeBox.RenderLevel">
+            <summary>
+            输出几个层级，0 为输出所有层级
+            </summary>
+            <value>The render level.</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeBox.RenderScript">
+            <summary>
+            是否输出动态折叠脚本
+            </summary>
+            <value><c>true</c> 显示动态叠脚本; otherwise, <c>false</c>不显示动态叠脚本</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeBox.AjaxMode">
+            <summary>
+            是否采用AJAX模式调用树，如果默认显示1层 请设置RenderLevel为 1，但是要绑定2层数据
+            </summary>
+            <value><c>true</c> if [ajax mode]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeBox.AjaxAction">
+            <summary>
+            Gets or sets a value indicating whether [ajax action].
+            </summary>
+            <value><c>true</c> if [ajax action]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeBox.AjaxUrl">
+            <summary>
+            Gets or sets the ajax URL.
+            </summary>
+            <value>The ajax URL.</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeBox.Items">
+            <summary>
+            Gets or sets the items.
+            </summary>
+            <value>The items.</value>
+        </member>
+        <member name="M:Zippy.XWeb.HtmlControls.XTreeMenu.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Zippy.XWeb.HtmlControls.XTreeMenu"/> class.
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.HtmlControls.XTreeMenu.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            将服务器控件内容发送到提供的 <see cref="T:System.Web.UI.HtmlTextWriter"/> 对象，此对象编写将在客户端呈现的内容。
+            </summary>
+            <param name="writer">接收服务器控件内容的 <see cref="T:System.Web.UI.HtmlTextWriter"/> 对象。</param>
+        </member>
+        <member name="M:Zippy.XWeb.HtmlControls.XTreeMenu.RenderHead(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders the head.
+            </summary>
+            <param name="writer">The writer.</param>
+        </member>
+        <member name="M:Zippy.XWeb.HtmlControls.XTreeMenu.RenderFoot(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders the foot.
+            </summary>
+            <param name="writer">The writer.</param>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeMenu.RenderSubMenu">
+            <summary>
+            设定是否显示二级菜单
+            </summary>
+            <value><c>true</c> 显示二级菜单; 或者, <c>false</c>只显示一级菜单</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeMenu.RenderScript">
+            <summary>
+            是否输出动态折叠脚本
+            </summary>
+            <value><c>true</c> 显示动态叠脚本; otherwise, <c>false</c>不显示动态叠脚本</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeMenu.AccordionMode">
+            <summary>
+            手风琴模式，仅仅显示一个菜单的内容
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeMenu.ShowChildren">
+            <summary>
+            是否默认展开
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeMenu.Items">
+            <summary>
+            Gets or sets the items.
+            </summary>
+            <value>The items.</value>
+        </member>
+        <member name="M:Zippy.XWeb.HtmlControls.XTreeNode.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Zippy.XWeb.HtmlControls.XTreeNode"/> class.
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.HtmlControls.XTreeNode.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Zippy.XWeb.HtmlControls.XTreeNode"/> class.
+            </summary>
+            <param name="_title">The _title.</param>
+            <param name="_link">The _link.</param>
+        </member>
+        <member name="M:Zippy.XWeb.HtmlControls.XTreeNode.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Zippy.XWeb.HtmlControls.XTreeNode"/> class.
+            </summary>
+            <param name="_title">The _title.</param>
+            <param name="_link">The _link.</param>
+            <param name="_class">The _class.</param>
+        </member>
+        <member name="M:Zippy.XWeb.HtmlControls.XTreeNode.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Zippy.XWeb.HtmlControls.XTreeNode"/> class.
+            </summary>
+            <param name="_title">The _title.</param>
+            <param name="_link">The _link.</param>
+            <param name="_class">The _class.</param>
+            <param name="_clickScript">The _click script.</param>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeNode.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>The title.</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeNode.NodePKID">
+            <summary>
+            Gets or sets the PKID.
+            </summary>
+            <value>The PKID.</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeNode.LinkHref">
+            <summary>
+            Gets or sets the link href.
+            </summary>
+            <value>The link href.</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeNode.LinkTarget">
+            <summary>
+            Gets or sets the link target.
+            </summary>
+            <value>The link target.</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeNode.CssClass">
+            <summary>
+            Gets or sets the CSS class.
+            </summary>
+            <value>The CSS class.</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeNode.Selected">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Zippy.XWeb.HtmlControls.XTreeNode"/> is slected.
+            </summary>
+            <value><c>true</c> if slected; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeNode.ChildNodes">
+            <summary>
+            Gets or sets the child nodes.
+            </summary>
+            <value>The child nodes.</value>
+        </member>
+        <member name="P:Zippy.XWeb.HtmlControls.XTreeNode.ExtendLinks">
+            <summary>
+            Gets or sets the extend links.
+            </summary>
+            <value>The extend links.</value>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Base.Editable">
+            <summary>
+            是否可以编辑
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Base.Parent">
+            <summary>
+            load之后使用此属性存储父亲
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Base.Provider">
+            <summary>
+            制定一个页面对象,此对象用来Load插件和js
+            </summary>
+        </member>
+        <member name="T:Zippy.XWeb.Model.Cell">
+            <summary>
+            是一个layout的单元格
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.Model.Cell.ToControl">
+            <summary>
+            此方法不能单独调用，须加入table里
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.XWeb.Model.ContentContainer.NextID">
+            <summary>
+            获取最大的整数，作为 id 使用
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.XWeb.Model.ContentContainer.RemoveChild(System.String)">
+            <summary>
+            删除某个冬冬
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Zippy.XWeb.Model.ContentContainer.ApplyTemplate(System.String)">
+            <summary>
+            应用模板
+            </summary>
+            <param name="templateXml"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.XWeb.Model.ContentContainer.ApplyTemplate(Zippy.XWeb.Model.Page)">
+            <summary>
+            应用模板
+            </summary>
+            <param name="template"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Zippy.XWeb.Model.ContentContainer.BodyStyle">
+            <summary>
+            Html 的Body的样式。
+            #page 的样式为 Style
+            #innerPage 的样式为 InnerStyle。
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.ContentContainer.MyStyle">
+            <summary>
+            本身的样式
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.ContentContainer.StyleSheet">
+            <summary>
+            页面的样式，此属性存的是站点的 style 的名称，访问地址为  /style/" +  StyleSheet + "/style.css
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.ContentContainer.Template">
+            <summary>
+            站点的模板，用名字区分。
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.ContentContainer.PageTitle">
+            <summary>
+            页面标题
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.ContentContainer.PageKeywords">
+            <summary>
+            页面关键字
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.ContentContainer.PageDescription">
+            <summary>
+            页面描述
+            </summary>
+        </member>
+        <member name="T:Zippy.XWeb.Model.ContentHolder">
+            <summary>
+            这个模型给 模板制作使用，使用此对象表示页面的内容区域。
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.Model.Helper.InitialModel(Zippy.XWeb.Model.Base)">
+            <summary>
+            需要手工设置各个物体的Parent，并将各个控件的Provider 设置为一致，在load 之后必须调用此方法
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.Model.Helper.FindIndex(Zippy.XWeb.Model.Base,Zippy.XWeb.Model.Base)">
+            <summary>
+            找到target在container中的位置
+            </summary>
+            <param name="container"></param>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Zippy.XWeb.Model.LayoutAbsolute">
+            <summary>
+            这是固定位置的布局，在页面中直接加入 ContentContainer ，
+            在输出页面的时候，直接输出到 Page 中，因为所有的位置都是相对于page的。
+            </summary>
+        </member>
+        <member name="T:Zippy.XWeb.Model.LayoutFixed">
+            <summary>
+            这是固定位置的布局，在页面中直接加入 ContentContainer ，
+            在输出页面的时候，直接输出到 form 中，因为所有的位置都是相对于body的。
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.Model.LayoutTable.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            create a table with fix px width. cell is px too.
+            </summary>
+            <param name="id"></param>
+            <param name="colCount"></param>
+            <param name="width"></param>
+        </member>
+        <member name="M:Zippy.XWeb.Model.LayoutTable.#ctor(System.String,System.Int32)">
+            <summary>
+            创建一个表格布局，没有宽度，意味着宽度为 %，那么内部的宽度也将为 %
+            </summary>
+            <param name="id"></param>
+            <param name="colCount"></param>
+        </member>
+        <member name="M:Zippy.XWeb.Model.LayoutTable.ToControl">
+            <summary>
+            在table里，最后一个格子的宽度一定是空
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.XWeb.Model.Page.NextID">
+            <summary>
+            获取最大的整数，作为 id 使用
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.XWeb.Model.Page.DeleteContentHolder">
+            <summary>
+            删除内容布局
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.Model.Page.RemoveChild(System.String)">
+            <summary>
+            删除某个冬冬
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Zippy.XWeb.Model.Page.FindContentHolder">
+            <summary>
+            找到 ContentHolder
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.XWeb.Model.Page.ToControl">
+            <summary>
+            将内容拼合到模板里
+            </summary>
+            <param name="content"></param>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Page.StyleSheet">
+            <summary>
+            页面的样式，此属性存的是站点的 style 的命名空间和名称，访问地址为 http://...  /xstyles/username/styleid/style.css
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Page.PageTitle">
+            <summary>
+            页面标题
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Page.PageKeywords">
+            <summary>
+            页面关键字
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Page.PageDescription">
+            <summary>
+            页面描述
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.Model.Parameter.#ctor">
+            <summary>
+            输入的类型，此参数指导编辑器编辑的内容， 后来考虑，这个不可行
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.Model.Plugin.ToControl">
+            <summary>
+            输出成为控件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.XWeb.Model.Plugin.SaveProperty">
+            <summary>
+            从form提交过来的属性
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Plugin.NameSpace">
+            <summary>
+            插件命名空间
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Plugin.Name">
+            <summary>
+            插件名称
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Plugin.Skin">
+            <summary>
+            外框皮肤样式名称
+            如：`xskin`liwill`panelSuper`yy
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Plugin.ContentSkin">
+            <summary>
+            内容皮肤样式名称
+            如：`xskin`liwill`menuBox`yy
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Plugin.SkinMode">
+            <summary>
+            外框皮肤模型（如 SuperPanel, SimplePanel）
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Plugin.ContentSkinMode">
+            <summary>
+            内容皮肤模型（如 GoodsList）
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Plugin.ContentStyle">
+            <summary>
+            内容的样式，通常用来控制内容边距。
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Model.Plugin.Item(System.String)">
+            <summary>
+            定义一个索引器方便Parameters内容的存储和修改
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Zippy.XWeb.Remoting.CS">
+            <summary>
+            配置字符串，包含 LSC 中的ID，以及命名空间
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Remoting.CS.id">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Remoting.CS.tt">
+            <summary>
+            标题，Title
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Remoting.CS.ns">
+            <summary>
+            唯一标识，命名空间
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Remoting.CS.cf">
+            <summary>
+            配置串，ConfigXml
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Remoting.CS.sf">
+            <summary>
+            系统页面，SystemFlag
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Remoting.CS.sts">
+            <summary>
+            状态，Status，用来表明是不是 默认
+            </summary>
+        </member>
+        <member name="P:Zippy.XWeb.Remoting.CS.n">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:Zippy.XWeb.StyleControls.BackgroundImage">
+            <summary>
+            value 是直接类似：url(SomeImage.gif)，请在程序中直接处理 url()
+            </summary>
+        </member>
+        <member name="T:Zippy.XWeb.StyleControls.BackgroundPosition">
+            <summary>
+             top, center, bottom, percentage, or pixel 
+             right, center, left, percentage, or pixel
+             省掉 percentage，统一使用 px 作为单位。
+            </summary>
+        </member>
+        <member name="T:Zippy.XWeb.StyleControls.Margin">
+            <summary>
+            Margin。直接继承，懒得写了
+            </summary>
+        </member>
+        <member name="T:Zippy.XWeb.StyleControls.Padding">
+            <summary>
+            以px作为长度单位
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.UIPlugin.JSAlert(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="M:Zippy.XWeb.UIPlugin.JSAlert(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="msg"></param>
+            <param name="redirectUrl"></param>
+        </member>
+        <member name="M:Zippy.XWeb.UIPlugin.JSClose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.UIPlugin.WriteAjax(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="res"></param>
+        </member>
+        <member name="M:Zippy.XWeb.UIPlugin.WriteXml(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="xml"></param>
+        </member>
+        <member name="M:Zippy.XWeb.UIPlugin.Return">
+            <summary>
+            Returns this instance.
+            </summary>
+        </member>
+        <member name="M:Zippy.XWeb.XHelper.CreateTemplate(System.String)">
+            <summary>
+            创建模板(Page)
+            </summary>
+            <param name="templateXml"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.XWeb.XHelper.CreateTemplateFromFile(System.String)">
+            <summary>
+            从文件中创建模板
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.XWeb.XHelper.CreateContent(System.String)">
+            <summary>
+            创建页面（ContentContainer）
+            </summary>
+            <param name="pageXml"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zippy.XWeb.XHelper.CreateContentFromFile(System.String)">
+            <summary>
+            从文件中创建页面
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,29 @@
+/*
+copyright 2010, liwill inc.
+
+description: 登陆页样式
+	 author: sky
+ 	   date: 2010-10-15
+    version: 1.0
+
+     update: 2010-10-22   修改.button背景图片及宽度
+*/
+
+#page{background:url(/content/images/loginBg.png) repeat-x}
+#wrap{background:url(/content/images/loginTopBg.jpg) no-repeat; width:860px}
+#header{padding:30px 45px 30px 40px; height:50px}
+#header a{color:#12459c;text-decoration:none; padding:2px 5px}
+#header a:hover{text-decoration:underline}
+#loginbox{background:url(/content/images/loginBoxBg.jpg) no-repeat 0 -15px; width:820px; height:335px}
+#loginbox #logincontent{ padding:40px 30px 30px 50px}
+#loginbox #logincontent #login_l{ width:370px; height:245px}
+#loginbox #logincontent #login_r{ padding:15px 30px}
+#loginbox #logincontent #login_r caption{margin-bottom:20px;}
+#loginbox #logincontent #login_r h3{background:url(/content/images/formTitle.gif) no-repeat; width:214px; height:30px; display:block; text-indent:-99999px;_margin-bottom:20px;}
+#loginbox #logincontent #login_r tr{height:38px; line-height:38px;}
+#loginbox #logincontent #login_r th{font-size:14px; letter-spacing:1px; color:#069; text-align:right; width:60px}
+.text{ background:url(/content/images/textBg.gif) no-repeat; border:1px solid #B9C8E7;color:#354F77;font-size:12px;height:16px;line-height:16px;padding:4px 5px;width:185px;}
+.button, .button:hover {color:#FFFFFF;font-size:14px;font-weight:bold;height:31px;width:96px;display:inline-block;vertical-align:middle;cursor:pointer;border:0 none;}
+.button,.button:hover{background:url(/content/images/u_spr_img.png) 0 -510px no-repeat}
+.button:hover{background-position:-107px -510px}
+#footer{padding:0 45px 30px 40px; height:50px; color:#999}

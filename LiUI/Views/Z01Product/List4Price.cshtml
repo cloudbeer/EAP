@@ -1,0 +1,283 @@
+﻿@using Z01Beetle.Entity
+@model Zippy.Data.Collections.PaginatedList<Z01Beetle.Entity.Z01Product>
+@{
+    ViewBag.Title = "商品列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var brands = ViewBag.brands as List<Z01Brand>;
+    var categories = ViewBag.categories as List<Z01ProductCategory>;
+    var isCFO = EAP.Logic.Helper.IsCFO();
+    var units = ViewBag._units as List<Z01Unit>;
+    var currencies = ViewBag._currencies as List<EAP.Bus.Entity.Currency>;
+}
+<style type="text/css">
+    .tr a { display: block; min-width: 100px; font-weight: bold; }
+    .tr a:hover { color: #ff0000; background: #ffeeee; }
+</style>
+<script type="text/javascript">
+
+		var pageSize = @ViewData["PageSize"];
+		var controller = "/Z01Product";
+		var sortUrl = "@Html.Raw(Model.ToSortUrl())";
+
+    $(function () {
+        $("#btnQuery").click(function () {
+            queryProduct();
+        });
+
+        $("#q").keypress(function (event) {
+            if (event.which == 13) {
+                queryProduct();
+            }
+        });
+
+        function queryProduct() {
+            window.location.href = '/Z01Product/List4Price/?PageSize=' + pageSize
+										+ "&qTitle=" + encodeURIComponent($("#q").val())
+                                        + "&qCateID=" + encodeURIComponent($("#category").val())
+                                        + "&qBrandID=" + encodeURIComponent($("#brand").val())
+        }
+        
+            
+            $(".v_detail").click(function(){
+                $("#x_product_detail").html("");
+                xthis=$(this);
+                pid = xthis.attr("rel");
+                $.post("/Z10DepotStatistics/ProductDetail/", {id:pid}, function(res){
+                    $("#x_product_detail").html(res);
+                    xthis.parent().append($("#x_product_detail").show());
+                });
+            });
+            $(".xdetail").click(function(){
+                xthis=$(this);
+                pid = xthis.attr("rel");
+                location="/Z01Product/OrderDetail/"+pid;
+            });
+            
+        $(".close").live('click', function () {
+            $(".xform").hide();
+        });
+        
+        function posMe(xthis, xtar) {
+            pos = xthis.position(); xleft = pos.left; xtop = pos.top; screenH=$(document.body).height();            
+            xtar.css("left", xleft + 2);
+            if (xtop<screenH/2)
+                xtar.css("top", xtop + 2).show();
+            else
+                xtar.css("top", xtop -300).show();
+        }
+        var proid = 0;
+        $(".xprice").live("click", function () {
+            xthis = $(this);
+            proid = xthis.attr("rel");
+            $.post("/Z01Product/EditAjax/", { productID: proid }, function (res) {
+                if (res.state) {
+                    $("#c_brand").val(res.data.brand);
+                    $("#c_title").val(res.data.title);
+                    $("#c_currency").val(res.data.currency);
+                    $("#c_stock_price").val(res.data.pricestock);
+                    $("#c_sale_price").val(res.data.pricesale);
+                    $("#c_unit").val(res.data.unit);
+                    $("#c_code").val(res.data.code);
+                    posMe(xthis, $("#create_product"));
+                } else {
+                    parent.$.jshowtip(res.message, "error", 5);
+                }
+            }, 'json');
+        });
+        
+        $("#btn_saveProduct").click(function () {
+            c_brand = $("#c_brand").val(); c_title = $("#c_title").val(); c_currency = $("#c_currency").val(); c_stock_price = $("#c_stock_price").val(); c_sale_price = $("#c_sale_price").val(); c_unit = $("#c_unit").val();c_code = $("#c_code").val(); 
+            if (c_brand == "0") { alert("必须选择品牌。"); $("#c_brand").focus(); return; }
+            if ($.trim(c_title) == "") { alert("必须填写品名。"); $("#c_title").focus(); return; }
+            if (c_stock_price == "" || isNaN(c_stock_price) || c_stock_price < 0) { alert("必须填写进价。"); $("#c_stock_price").focus(); return; }
+            if (c_sale_price == "" || isNaN(c_sale_price) || c_sale_price < 0) { alert("必须填写售价。"); $("#c_sale_price").focus(); return; }
+            $.post("/Z01Product/SaveAjaxAdmin/", {c_id:proid, c_brand: c_brand, c_title: c_title,c_code: c_code, c_currency: c_currency, c_stock_price: c_stock_price, c_sale_price: c_sale_price, c_unit: c_unit }, function (res) {
+                if (res.state) {
+                    alert("修改成功");
+                }
+                else{
+                    parent.$.jshowtip(res.message, "error", 5);
+                }
+                $("#create_product").hide();
+            }, 'json');
+        });
+    });
+</script>
+<script type="text/javascript" src="/content/scripts/pagemvc.js"></script>
+<ul id="x_product_detail" style='display: none'>
+    <li>载入中</li>
+</ul>
+<div id="create_product" class="xform">
+    <div class="clearfix bar">
+        <span style="float: left">修订商品</span> <span class="close">X</span>
+    </div>
+    <ul>
+        <li id="d_selBrand">品牌：
+            <select id="c_brand">
+                <option value="0">请选择</option>
+                @foreach (var brand in brands)
+                { 
+                    <option value="@(brand.BrandID ?? 0)">@brand.Title</option>
+                }
+            </select>
+        </li>
+        <li>品名：<input id="c_title" class="text w200" /></li>
+        <li>编号：<input id="c_code" class="text w200" /></li>
+        <li>货币：
+            <select id="c_currency">
+                @foreach (var cur in currencies)
+                {
+                    <option value="@cur.ID">@cur.Title</option>                            
+                }
+            </select></li>
+        <li>进价：<input id="c_stock_price" class="text w100 tr" /></li>
+        <li>出价：<input id="c_sale_price" class="text w100 tr" /></li>
+        <li>单位：
+            <select id="c_unit">
+                @foreach (var cur in units)
+                {
+                    <option value="@cur.UnitID">@cur.Title</option>                            
+                }
+            </select></li>
+        <li>
+            <input type="button" id="btn_saveProduct" value="修订商品（同时会修订库存价格）!!!!" style="color: red"
+                class="button" /></li>
+    </ul>
+</div>
+<div id="contents">
+    <div id="top">
+        <div class="con clearfix">
+            <div class="fl">
+                @Html.Raw(ViewData["TopMenu"].ToString())
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="xdivcontent">
+            <div id="dQuery" style="padding: 10px">
+                关键字：<input id="q" class="text w100" />
+                品牌：<select id="brand">
+                    <option value="0">请选择</option>
+                    @foreach (var brand in brands)
+                    {
+                        <option value="@(brand.BrandID ?? 0)">@brand.Title</option>
+                    }
+                </select>
+                类别：<select id="category">
+                    <option value="0">请选择</option>
+                    @foreach (var cate in categories)
+                    {
+                        <option value="@(cate.CategoryID ?? 0)">@Html.Raw(cate.Title)</option>
+                    }
+                </select>
+                <input type="button" value="查询" id="btnQuery" class="button mr20" />
+                <span style="color: Red; font-weight: bold;">此处价格修订会同时修订库存价格，仅在初始建库使用！商品订货或销售后禁止使用。</span>
+            </div>
+            <table cellspacing="0" cellpadding="0" border="0" rel="main" class="list-table">
+                <tr rel="title">
+                    <th>
+                        品牌
+                    </th>
+                    <th>
+                        标题
+                    </th>
+                    <th style="width: 120px">
+                        操作
+                    </th>
+                    <th style="min-width: 100px">
+                        库存(点击看看)
+                    </th>
+                    <th style="width: 100px">
+                        标价
+                    </th>
+                    @if (isCFO)
+                    { 
+                        <th>
+                            进价
+                        </th>
+                        <th>
+                            折扣
+                        </th>
+                    }
+                </tr>
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+
+                        string btitle = "";
+                        var brand = brands.Where(s => s.BrandID == item.BrandID).FirstOrDefault();
+                        if (brand != null)
+                        {
+                            btitle = brand.Title;
+                        }
+
+                        string unitLabel = "/个";
+                        Z01Unit unit = Z01Beetle.Entity.Helper.Z01ProductHelper.GetUnitIDEntity(Zippy.Data.StaticDB.DB, item);
+                        if (unit != null)
+                        {
+                            unitLabel = "/" + unit.Title;
+                        }
+                    <tr rel="item">
+                        <td>
+                            <a href='/z01product/Index/?qBrandID=@item.BrandID'>
+                                @btitle</a>
+                        </td>
+                        <td>
+                            <a href='/z01product/orderHistory/@item.ProductID' class="i_xdetail xdetail bold">
+                                @item.Title</a>  [@item.Code]
+                        </td>
+                        <td>
+                            <a href="javascript:;" rel="@item.ProductID" class="i_xprice xprice">商品修订</a>
+                        </td>
+                        <td class="tr">
+                            @{
+                        var xsum = Zippy.Data.StaticDB.DB.Take<Z10Cabbage.Entity.Z10DepotProduct>("ProductID=" + item.ProductID).Sum(s => s.StockSum) ?? 0;
+                        if (xsum <= 0)
+                        {
+                                <strong style='color: red; font-weight: bold'>无货</strong>
+                        }
+                        else
+                        {
+                                <a href="javascript:;" class="v_detail" rel="@item.ProductID" style="min-width: 100px;">
+                                    @((xsum).ToString("0.##"))</a>
+                            
+                        }
+                            }
+                        </td>
+                        <td class="tr">
+                            @item.Currency @((item.PriceList ?? 0).ToString("0.##"))
+                            @unitLabel
+                        </td>
+                        @if (isCFO)
+                        { 
+                            <td class="tr">
+                                @((item.PriceStock ?? 0).ToString("0.##"))
+                            </td>
+                            <td class="tr">
+                                @if (item.PriceList > 0)
+                                {  
+                                    @(((item.PriceStock ?? 0) / (item.PriceList ?? 1)).ToString("0.##"))
+                                }
+                            </td>
+                        }
+                    </tr>                
+                    }
+                }
+                else
+                { 
+                    <!-- 没有数据的时候显示 -->
+                    <tr rel="noitem">
+                        <td colspan="9" class="msg-box h200">
+                            没有任何数据
+                        </td>
+                    </tr>
+                    <!-- 没有数据的时候显示 -->
+                }
+            </table>
+        </div>
+    </div>
+</div>
+<div id="bottom">
+    @Html.Raw(Model.ToPagerHtml("Z01Product", "List4Price", ViewData["PageSize"].ToInt32(20)))
+</div>

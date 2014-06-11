@@ -1,0 +1,83 @@
+/*
+copyright 2010, liwill inc.
+
+description: 小图标样式
+	 author: sky
+	   date: 2010-10-15
+	version: 1.0
+*/
+.ico,.icon{background:url(/content/images/icons.png) no-repeat}
+.icon{display:inline-block;height:16px;line-height:10;margin-right:4px;overflow:hidden;vertical-align:middle;width:16px}
+.i_ruku{background-position:0 0;height:25px; width:25px}
+.i_chuku{background-position:-25px 0;height:25px; width:25px}
+.i_kucun{background-position:-50px 0;height:25px; width:25px}
+.i_baobiao{background-position:-75px 0;height:25px; width:25px}
+.i_system{background-position:-100px 0;height:25px; width:25px}
+.i_xruku{background-position:0 -25px;height:25px; width:25px}
+.i_warn{background-position:-73px -55px;width:32px;height:30px}
+.i_error{background-position:-37px -55px;width:30px;height:30px}
+.i_success{background-position:0 -55px;width:32px;height:30px}
+.i_cabbage{background-position:-130px 0;height:25px; width:25px}
+
+.i_twarn{background-position:-120px -120px}
+.i_tsuccess{background-position:-111px -30px}
+.i_terror{background-position:-111px -57px}
+.i_tloading{background:url(/content/images/loading.gif) no-repeat center center}
+
+.i_refresh{background-position:0 -94px}
+.i_search{background-position:-20px -94px}
+.i_create{background-position:-40px -94px}
+.i_update{background-position:-60px -94px}
+.i_delete{background-position:-80px -94px}
+.i_back{background-position:-100px -94px}
+.i_print{background-position:-160px -34px}
+
+.i_sort{cursor:pointer; width:12px; height:12px}
+.i_nosort{background-position:-200px -94px}
+.i_asc {background-position:-220px -94px}
+.i_desc {background-position:-240px -94px}
+.i_edit{background-position:-240px 3px}
+.i_del{background-position:-240px -17px}
+.i_detail {background-position:-240px -257px}
+
+.i_xedit,.i_xdel,.i_xok,.i_xok2,.i_xpay,.i_xterms,.i_xdetail,.i_xgrant{background:url(/content/images/icons.png) no-repeat;padding:0 2px 2px 19px;}
+.i_xedit {background-position:-240px 2px}
+.i_xdel {background-position:-240px -19px}
+.i_xok,.i_xok2{background-position:-240px -180px}
+.i_putin{background-position:-240px -217px} 
+.i_putout{background-position:-240px -197px}
+.i_pay{ background-position:-240px -238px}
+.i_terms{ background-position:-240px -111px}
+.i_xdetail {background-position:-240px -259px}
+.i_xgrant{ background-position:-240px -279px}
+
+.i_group{background-position:-180px -74px}
+.i_role{background-position:-200px -74px}
+.i_user{background-position:-220px -74px}
+.i_permission{background-position:-240px -74px}
+.i_product{background-position:-180px -54px}
+.i_customer{background-position:-220px -54px}
+.i_category{background-position:-200px -54px}
+.i_brand{background-position:-160px -54px}
+.i_unit{background-position:-140px -54px}
+.i_bank{background-position:-140px -74px}
+.i_title{background-position:-160px -74px}
+.i_property{background-position:-240px -54px}
+.i_warehouse{background-position:-140px -34px}
+.i_depot{ background-position:-180px -34px}
+.i_init{ background-position:-200px -34px}
+.i_purchase{background-position:-240px -220px}
+.i_flowlist{background-position:-240px -260px}
+.i_depotproducts{background-position:-220px -34px}
+.i_cashflowlist{background-position:-240px -240px}
+.i_chart{background-position:-160px -15px}
+.i_outdepot{background-position:-240px -200px}
+.i_currency{background-position:-180px -14px}
+.i_mterms{background-position:-240px -114px}
+
+
+.i_treeclose{background-position:-37px -117px}
+.i_treeclose:hover{background-position:3px -117px}
+.i_treeopen{background-position:-57px -117px}
+.i_treeopen:hover{background-position:-17px -117px}
+.i_none{background-position:1000px 1000px}
